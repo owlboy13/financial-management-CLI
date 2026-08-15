@@ -35,6 +35,10 @@ import sqlite3
 from sqlite3 import OperationalError 
 
 
+def back_to_menu():
+    menu = input("\naperte [ENTER] e volte para o menu...")
+    return menu
+
 def create_table__(name_bd, name_table):
     if not name_bd:
         return None
@@ -42,6 +46,9 @@ def create_table__(name_bd, name_table):
         table = Table(name_bd, name_table)
         table.create_table()
         print(f"[UTILS] Tabela {name_table} criada com sucesso")
+
+        back_to_menu()
+
     except Exception as e:
         print(e)
 
@@ -56,6 +63,9 @@ def view_table(name_db, name_table):
         dataframe__ = pd.DataFrame(df)
         print(f"\nTabela {name_table}:\n{dataframe__}\n\nTotal: R$ {total:.2f}".replace(".", ","))
         print("=="*40)
+
+        back_to_menu()
+
     except Exception as e:
         print("[ERRO-UTILS-LEITURA]: ", e)
     return None
@@ -64,7 +74,11 @@ def insert_data(name_db, name_table, description, validate, value__):
     try:
         df_table = Table(name_db, name_table)
         print(f"[UTILS] dados inseridos na tabela {name_table}")
-        return df_table.insert(description, validate, value__)
+
+        df_table.insert(description, validate, value__)
+
+        back_to_menu()
+
     except Exception as e:
         print("[ERRO-UTILS-INSERCAO]: ", e)
 
@@ -75,6 +89,8 @@ def update_data(name_db, name_table, id_, pago, data_pagamento):
         table = Table(name_db, name_table)
         table.update(id_, pago, data_pagamento)
         print(f"[UTILS] Dados atualizados do {id_} como {pago}")
+
+        input("\naperte [ENTER] e volte para o menu...\n")
     except Exception as e:
         print("[ERRO-UTILS-ATUALIZACAO]: ", e)
 
@@ -88,6 +104,8 @@ def add_column_table(name_db, name_table, column_name, datatype__, count_caracte
         table.alter_table(column_name, datatype__, count_caracteres)
         print(f"[UTILS] Coluna {column_name} adicionada com sucesso")
 
+        back_to_menu()
+
     except OperationalError as e:
         print("[ERRO-UTILS] Erro Operacional: ", e)
 
@@ -99,8 +117,12 @@ def delete_data(name_db, name_table, value__):
         table = Table(name_db, name_table)
         table.delete(value__)
         print(f"[UTILS] {value__} deletado com sucesso")
+
+        back_to_menu()
+
     except Exception as e:
         print("[ERRO-UTILS-DELETE]: ", e)
+
 
 def show_tables(database__):
     try:
@@ -119,6 +141,7 @@ def show_tables(database__):
         for table_name in tables_names:
             count__ = count__ + 1
             print(f"[{count__}] - {table_name}\n")
+
         return None
         
     except OperationalError as e:
@@ -133,18 +156,22 @@ def view_menu():
 █     █████  ███  █   █ █     ███ █   █ █   █ █   █  ███  █████ 
 
 """
-
+    print("=="*40)
     print(f"\n{header}")
+    print("=="*40)
+
+    input("\nAperte [ENTER] para abrir o menu com opções...")
 
     print("""
-            \n[1] - Criar Nova Tabela
-            \n[2] - Visualizar Tabela
-            \n[3] - Inserir Dados
-            \n[4] - Atualizar Tabela
-            \n[5] - Estatísticas
-            \n[6] - Deletar Conta ou Recebimento
-            \n[0] - Sair
-""")
+                \n  MANIPULE OS DADOS:\n
+                \n[1] - Criar Nova Tabela
+                \n[2] - Visualizar Tabela
+                \n[3] - Inserir Dados
+                \n[4] - Atualizar Tabela
+                \n[5] - Estatísticas
+                \n[6] - Deletar Conta ou Recebimento
+                \n[0] - Sair
+    """)
 
 
 if __name__ == '__main__':
