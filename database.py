@@ -128,7 +128,7 @@ INSERT INTO {self.name_table} (descricao, vencimento, valor) VALUES (?, ?, ?);
         except OperationalError as e:
             print("[DATABASE] Erro Operacional: ", e)
 
-    def delete(self, value__):
+    def delete_line(self, value__):
         try:
             query = f"""
                 DELETE FROM {self.name_table} WHERE id = ?
@@ -146,6 +146,40 @@ INSERT INTO {self.name_table} (descricao, vencimento, valor) VALUES (?, ?, ?);
             print("[DATABASE] Erro Operacional: ", e)
         except ProgrammingError as e:
             print("[DATABASE] Erro de Programação: ", e)
+
+    def delete_table(self, name_table):
+        try:
+
+            query = f"""
+            DROP TABLE IF EXISTS {name_table}
+"""
+            db = DataBase("gestao_financeira.db")
+            db.connect()
+            db.cursor.execute(query)
+            db.conn.commit()
+            print(f"[QUERY] Tabela {name_table} deletada")
+
+        except ValueError as e:
+            print(f"[ERRO-QUERY-VALOR]: ", e)
+
+        except OperationalError as e:
+            print(f"[ERRO-QUERY-OPERATIONAL]: ", e)
+
+    def no_payments(self, name_table):
+        try:
+            query = f"""
+                SELECT id, descricao, vencimento, valor from {name_table} WHERE pago = 0
+"""
+            db = DataBase("gestao_financeira_2026")
+            db.connect()
+            db.cursor.execute(query)
+            db.cursor.fetchall()
+            db.close()
+        except OperationalError as e:
+            print(f"[DATABASE-ERRO-NOPAYMENTS-OPERATIONAL: {e}")
+        except ValueError as e:
+            print(f"[DATABASE-ERRO-NOPAYMENTS-VALUE]: {e}")
+
 
 if __name__ == '__main__':
     table_ganhos = Table("teste.db", "GanhosTeste")

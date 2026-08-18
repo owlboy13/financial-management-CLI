@@ -76,11 +76,12 @@ def insert_data(name_db, name_table, description, validate, value__):
         print(f"[UTILS] dados inseridos na tabela {name_table}")
 
         df_table.insert(description, validate, value__)
-
+    
         back_to_menu()
 
     except Exception as e:
         print("[ERRO-UTILS-INSERCAO]: ", e)
+
 
 def update_data(name_db, name_table, id_, pago, data_pagamento):
     if not id_:
@@ -115,7 +116,7 @@ def add_column_table(name_db, name_table, column_name, datatype__, count_caracte
 def delete_data(name_db, name_table, value__):  
     try:
         table = Table(name_db, name_table)
-        table.delete(value__)
+        table.delete_line(value__)
         print(f"[UTILS] {value__} deletado com sucesso")
 
         back_to_menu()
@@ -142,26 +143,13 @@ def show_tables(database__):
             count__ = count__ + 1
             print(f"[{count__}] - {table_name}\n")
 
+
         return None
         
     except OperationalError as e:
         print(f"[ERRO-UTILS-SHOWTABELAS] Erro Operacional: {e}")
 
 def view_menu():
-    header = """
-█████ █      ███  █   █ █████ ███ █   █  ███  █   █  ███  █████ 
-█     █     █   █ █   █ █      █  ██  █ █   █ ██  █ █     █     
-████  █     █   █ █ █ █ ████   █  █ █ █ █████ █ █ █ █     ████  
-█     █     █   █ ██ ██ █      █  █  ██ █   █ █  ██ █     █     
-█     █████  ███  █   █ █     ███ █   █ █   █ █   █  ███  █████ 
-
-"""
-    print("=="*40)
-    print(f"\n{header}")
-    print("=="*40)
-
-    input("\nAperte [ENTER] para abrir o menu com opções...")
-
     print("""
                 \n  MANIPULE OS DADOS:\n
                 \n[1] - Criar Nova Tabela
@@ -172,6 +160,21 @@ def view_menu():
                 \n[6] - Deletar Conta ou Recebimento
                 \n[0] - Sair
     """)
+
+def present_flow_finance():
+    header = """
+    █████ █      ███  █   █ █████ ███ █   █  ███  █   █  ███  █████ 
+    █     █     █   █ █   █ █      █  ██  █ █   █ ██  █ █     █     
+    ████  █     █   █ █ █ █ ████   █  █ █ █ █████ █ █ █ █     ████  
+    █     █     █   █ ██ ██ █      █  █  ██ █   █ █  ██ █     █     
+    █     █████  ███  █   █ █     ███ █   █ █   █ █   █  ███  █████ 
+
+    """
+    print("=="*40)
+    print(f"\n{header}")
+    print("=="*40)
+
+    input("\nAperte [ENTER] para abrir o menu com opções...")
 
 
 if __name__ == '__main__':

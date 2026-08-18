@@ -1,10 +1,13 @@
 from pathlib import Path
-from utils import create_table__, view_table, insert_data, update_data, delete_data, view_menu, show_tables
+from utils import create_table__, view_table, insert_data, update_data
+from utils import delete_data, view_menu, show_tables, present_flow_finance
 import datetime
 
 BASE_DIR = Path(__file__).parent
-DATABASE = "teste.db"
+DATABASE = "gestao_financeira_2026.db"
 DATE_NOW = datetime.datetime.now()
+
+present_flow_finance()
 
 while True:
 
@@ -49,12 +52,14 @@ while True:
             show_tables__ = show_tables(DATABASE)
             input_table = str(input("Digite o nome da tabela: "))
             if options == responses[1]:
-                print("""
-                        \nMenu de Insercao\n 
-""")
-                input_description = input("descreva a conta a pagar ou receber: \n")
-                input_validate = input("digite a data de vencimento ou recebimento: \n")
-                input_value = float(input("digite o valor: (R$) \n").replace(",", "."))
+
+                    print("""
+                            \nMenu de Insercao\n 
+    """)
+
+                    input_description = input("descreva a conta a pagar ou receber: \n")
+                    input_validate = input("digite a data de vencimento ou recebimento: \n")
+                    input_value = float(input("digite o valor: (R$) \n").replace(",", "."))
 
             if options == responses[2]:
                 print("""
