@@ -170,11 +170,13 @@ INSERT INTO {self.name_table} (descricao, vencimento, valor) VALUES (?, ?, ?);
             query = f"""
                 SELECT id, descricao, vencimento, valor from {name_table} WHERE pago = 0
 """
-            db = DataBase("gestao_financeira_2026")
+            db = DataBase("gestao_financeira_2026.db")
             db.connect()
             db.cursor.execute(query)
-            db.cursor.fetchall()
-            db.close()
+            all_arrows = db.cursor.fetchall()
+            for row in all_arrows:
+                print(row)
+            db.conn.commit()
         except OperationalError as e:
             print(f"[DATABASE-ERRO-NOPAYMENTS-OPERATIONAL: {e}")
         except ValueError as e:
@@ -182,9 +184,6 @@ INSERT INTO {self.name_table} (descricao, vencimento, valor) VALUES (?, ?, ?);
 
 
 if __name__ == '__main__':
-    table_ganhos = Table("teste.db", "GanhosTeste")
-    
-    table_ganhos.read_table()
+    table = Table("gestao_financeira_2026", "gastos_agosto")
+    table.no_payments("gastos_agosto")
 
-    table_gastos = Table("teste.db", "GastosTeste")
-    table_gastos.read_table()

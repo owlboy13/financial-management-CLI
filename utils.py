@@ -29,7 +29,7 @@ editar valores ja adicionados e adicionar novos atributos
 excluir valores
 
 """
-from database import DataBase, Table
+from database import Table
 import pandas as pd
 import sqlite3
 from sqlite3 import OperationalError 
@@ -60,14 +60,45 @@ def view_table(name_db, name_table):
         conn = sqlite3.connect(name_db)
         df = pd.read_sql(f"SELECT * FROM {name_table}", conn)
         total = df['valor'].sum()
+        media = df['valor'].mean()
+        minimo = df['valor'].min()
+        maximo = df['valor'].max()
         dataframe__ = pd.DataFrame(df)
-        print(f"\nTabela {name_table}:\n{dataframe__}\n\nTotal: R$ {total:.2f}".replace(".", ","))
+        print(f"\nTabela {name_table}:\n{dataframe__}\n\nTotal: R$ {total:.2f} || Média: R$ {media:.2f} || Mínimo: R$ {minimo:.2f} || Máximo: R$ {maximo:.2f} ||".replace(".", ","))
         print("=="*40)
 
         back_to_menu()
 
     except Exception as e:
         print("[ERRO-UTILS-LEITURA]: ", e)
+    return None
+
+def view_no_payments(name_db, name_table):
+    if not name_db or not name_table:
+        print("[banco ou tabela não existem]")
+        return None
+    try:
+        query_no_payments = f"""
+                SELECT id, descricao, valor, vencimento from {name_table} WHERE pago = 0
+"""
+        conn = sqlite3.connect(name_db)
+        df_no_payments = pd.read_sql(query_no_payments, conn)
+        total_pendentes = df_no_payments['valor'].sum()
+        query_payments = f"""
+                SELECT id, descricao, valor, vencimento from {name_table} WHERE pago = 1
+"""     
+        df_payments = pd.read_sql(query_payments, conn)
+        total_pago = df_payments['valor'].sum()
+        if df_no_payments.empty:
+            print(f"\n[Todas as contas do {name_table} foram pagas]\n")           
+        else:
+            print(f"\nFiltro {name_table} [PENDENTES]:\n{df_no_payments}\n\nTotal de Pendentes: R$ {total_pendentes:.2f}".replace(".", ","))
+        print(f"\nFiltro {name_table} [PAGOS]:\n{df_payments}\n\nTotal de Pago: R$ {total_pago:.2f}".replace(".", ","))
+        print("=="*40)
+
+        back_to_menu()
+    except Exception as e:
+        print("[ERRO-UTILS-FILTERNOPAYMENT]: ", e)
     return None
 
 def insert_data(name_db, name_table, description, validate, value__):
@@ -185,10 +216,7 @@ if __name__ == '__main__':
     # insert_data("teste.db", "GanhosTeste", "Venda de Software", "29/07/2026", 1900)
     # insert_data("teste.db", "GastosTeste", "Conta de Luz", "29/08/2026", 300.58)
     # update_data("teste.db", "GastosTeste", "1", True, "01/08/2026")
-    
-    view_table("teste.db", "GanhosTeste")
-    view_table("teste.db", "GastosTeste")
-    show_tables("teste.db")
+    view_no_payments("gestao_financeira_2026.db", "gastos_agosto")
 
 
 

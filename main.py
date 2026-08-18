@@ -6,6 +6,7 @@ import datetime
 BASE_DIR = Path(__file__).parent
 DATABASE = "gestao_financeira_2026.db"
 DATE_NOW = datetime.datetime.now()
+FORMAT_DATE_NOW = datetime.datetime.strftime(DATE_NOW, "%d/%m/%Y %H:%M:%S")
 
 present_flow_finance()
 
@@ -39,7 +40,7 @@ while True:
             4: lambda: update_data(name_db=DATABASE, name_table=input_table,
                                 id_=input_id,
                                 pago=default_pago,
-                                data_pagamento=DATE_NOW),
+                                data_pagamento=FORMAT_DATE_NOW),
             5: lambda: print('\nestatisticas em breve...\n'),
             6: lambda: delete_data(name_db=DATABASE, name_table=input_table,
                                 value__=input_id__),
