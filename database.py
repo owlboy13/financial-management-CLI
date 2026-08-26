@@ -35,16 +35,25 @@ class Table(DataBase):
     def name_table(self):
         return self._name_table
     
-    def create_table(self):
+    def create_table(self, type_account: True):
         try:
-            query = f"""
-                CREATE TABLE IF NOT EXISTS {self.name_table} (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    descricao TEXT NOT NULL,
-                    vencimento TEXT NOT NULL,
-                    valor DECIMAL(10, 2) NOT NULL,
-                    pago BOOLEAN DEFAULT FALSE,
-                    data_pagamento TEXT DEFAULT NULL)"""
+            if type_account:
+                query = f"""
+                    CREATE TABLE IF NOT EXISTS {self.name_table} (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        descricao TEXT NOT NULL,
+                        vencimento TEXT NOT NULL,
+                        valor DECIMAL(10, 2) NOT NULL,
+                        pago BOOLEAN DEFAULT FALSE,
+                        data_pagamento TEXT DEFAULT NULL)"""
+            else:
+                query = f"""
+                    CREATE TABLE IF NOT EXISTS {self.name_table} (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        descricao TEXT NOT NULL,
+                        valor DECIMAL(10, 2) NOT NULL,
+                        pago BOOLEAN DEFAULT TRUE,
+                        data_pagamento TEXT DEFAULT NULL);"""
             db = DataBase(self.name_db)
             db.connect()
             db.cursor.execute(query)
@@ -73,7 +82,7 @@ SELECT * FROM {self.name_table}
         except AttributeError as e:
             print("[DATABASE] Erro de Atributo", e)
 
-    def insert(self, descricao, vencimento, valor):
+    def insert_payments(self, descricao, vencimento, valor):
         try:
             query = f"""
 INSERT INTO {self.name_table} (descricao, vencimento, valor) VALUES (?, ?, ?);
@@ -89,6 +98,23 @@ INSERT INTO {self.name_table} (descricao, vencimento, valor) VALUES (?, ?, ?);
             print("[DATABASE] Erro de Atributo: ", e)
         except OperationalError as e:
             print("[DATABASE] Erro Operacional: ", e)
+
+    def insert_recept(self, descricao, valor, pago, data_pagamento):
+        try:
+            query = f"""
+INSERT INTO {self.name_table} (descricao, valor, pago, data_pagamento) VALUES (?, ?, ?, ?);
+"""
+            db = DataBase(self.name_db)
+            db.connect()
+            db.cursor.execute(query, (descricao, valor, pago, data_pagamento))
+            db.conn.commit()
+            db.close()
+        except TypeError as e:
+            print("[DATABASE] Erro de Tipo de dado: ", e)
+        except AttributeError as e:
+            print("[DATABASE] Erro de Atributo: ", e)
+        except OperationalError as e:
+            print("[DATABASE] Erro Operacional: ", e)           
 
     def update(self, id, pago, data_pagamento):
         try:
@@ -147,28 +173,26 @@ INSERT INTO {self.name_table} (descricao, vencimento, valor) VALUES (?, ?, ?);
         except ProgrammingError as e:
             print("[DATABASE] Erro de Programação: ", e)
 
-    def delete_table(self, name_table):
+    def delete_table(self):
         try:
-
             query = f"""
-            DROP TABLE IF EXISTS {name_table}
+            DROP TABLE IF EXISTS {self.name_table}
 """
-            db = DataBase("gestao_financeira.db")
+            db = DataBase(self.name_db)
             db.connect()
             db.cursor.execute(query)
             db.conn.commit()
-            print(f"[QUERY] Tabela {name_table} deletada")
-
+            print(f"[QUERY] Tabela {self.name_table} deletada")
         except ValueError as e:
             print(f"[ERRO-QUERY-VALOR]: ", e)
 
         except OperationalError as e:
             print(f"[ERRO-QUERY-OPERATIONAL]: ", e)
 
-    def no_payments(self, name_table):
+    def no_payments(self):
         try:
             query = f"""
-                SELECT id, descricao, vencimento, valor from {name_table} WHERE pago = 0
+                SELECT id, descricao, vencimento, valor from {self.name_table} WHERE pago = 0
 """
             db = DataBase("gestao_financeira_2026.db")
             db.connect()
@@ -184,6 +208,5 @@ INSERT INTO {self.name_table} (descricao, vencimento, valor) VALUES (?, ?, ?);
 
 
 if __name__ == '__main__':
-    table = Table("gestao_financeira_2026", "gastos_agosto")
-    table.no_payments("gastos_agosto")
+    table = Table("gestao_financeira_2026.db", "teste").delete_table()
 

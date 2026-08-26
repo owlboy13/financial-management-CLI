@@ -1,12 +1,13 @@
-lista_teste = [1, 2, 3, 4, 5]
+from utils import show_tables
+from main import DATABASE
+import pandas as pd
+import sqlite3
+from pandas.errors import DatabaseError
 
-lista_comprehension = [lista_ for lista_ in lista_teste if lista_ == 1 and lista_ == 3 and lista_ == 5]
+input_table = "sadasda"
+conn = sqlite3.connect("gestao_financeira_2026.db")
+df = pd.read_sql(f"""
+                SELECT * FROM {input_table}
+""", conn)
 
-import datetime
-
-now__ = datetime.datetime.now()
-str_now__ = str(now__)
-print(str_now__)
-
-lista_2 = lista_teste.pop(0)
-print(lista_teste)
+print(df)
