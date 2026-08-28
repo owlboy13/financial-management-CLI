@@ -35,10 +35,9 @@ class Table(DataBase):
     def name_table(self):
         return self._name_table
     
-    def create_table(self, type_account: True):
+    def create_table(self):
         try:
-            if type_account:
-                query = f"""
+            query = f"""
                     CREATE TABLE IF NOT EXISTS {self.name_table} (
                         id INTEGER PRIMARY KEY AUTOINCREMENT,
                         descricao TEXT NOT NULL,
@@ -46,14 +45,6 @@ class Table(DataBase):
                         valor DECIMAL(10, 2) NOT NULL,
                         pago BOOLEAN DEFAULT FALSE,
                         data_pagamento TEXT DEFAULT NULL)"""
-            else:
-                query = f"""
-                    CREATE TABLE IF NOT EXISTS {self.name_table} (
-                        id INTEGER PRIMARY KEY AUTOINCREMENT,
-                        descricao TEXT NOT NULL,
-                        valor DECIMAL(10, 2) NOT NULL,
-                        pago BOOLEAN DEFAULT TRUE,
-                        data_pagamento TEXT DEFAULT NULL);"""
             db = DataBase(self.name_db)
             db.connect()
             db.cursor.execute(query)
@@ -116,7 +107,7 @@ INSERT INTO {self.name_table} (descricao, valor, pago, data_pagamento) VALUES (?
         except OperationalError as e:
             print("[DATABASE] Erro Operacional: ", e)           
 
-    def update(self, id, pago, data_pagamento):
+    def update_payment(self, id, pago, data_pagamento):
         try:
             query = f"""
                 UPDATE {self.name_table} SET pago = ?, data_pagamento = ? WHERE id = ?
@@ -132,6 +123,25 @@ INSERT INTO {self.name_table} (descricao, valor, pago, data_pagamento) VALUES (?
             print("[DATABASE] Erro de Atributo: ", e)
         except OperationalError as e:
             print("[DATABASE] Erro Operacional: ", e)
+
+    def edit_value(self, id_, value_):
+        if value_ == 0 or value_ == None:
+            return None
+        try:
+            query = f"""
+                UPDATE {self.name_table} SET valor = ? WHERE id = ?
+"""     
+            db = DataBase(self.name_db)
+            db.connect()
+            db.cursor.execute(query, (value_, id_))
+            db.conn.commit()
+            db.close()
+        except ValueError as e:
+            print("[DATABASE-ERROR-EDITVALUE]: ", e)
+        except OperationalError as e:
+            print("[DATABASE-ERROr-EDITVALUE]: ", e)
+
+        return None
 
     def alter_table(self, column_name, datatype__, count_caract: str | None):
         """

@@ -44,7 +44,10 @@ def main():
                 3: lambda: update_data(name_db=DATABASE, name_table=input_table,
                                     id_=input_id,
                                     pago=default_pago,
-                                    data_pagamento=FORMAT_DATE_NOW),
+                                    data_pagamento=FORMAT_DATE_NOW,
+                                    quest_edit=quest_edit,
+                                    input_id=input_id,
+                                    input_value=input_value),
                 4: lambda: print('\nestatisticas em breve...\n'),
                 5: lambda: delete_data(name_db=DATABASE, name_table=input_table,
                                     value__=input_id__),
@@ -62,12 +65,18 @@ def main():
 
             if options == responses[2]:
                 print("""
-                    \nMenu de Atualizacao\n
-    """)
-                input_id = input("digite o id da conta: \n")
-                input_pago = input("marcar como pago? [sim] ou [não]\n").lower().strip()
-                if input_pago != "sim" and input_pago != "s":
-                    default_pago = False
+                        \nMenu de Atualizacao\n
+        """)
+                print("[1] - Editar Valor\n[2] - Marcar como Pago\n")
+                quest_edit = input("Digite o número da operacao que deseja executar: ").lower().strip()
+                if quest_edit == "2":
+                    input_id = input("digite o id da conta: \n")
+                    input_pago = input("marcar como pago? [sim] ou [não]\n").lower().strip()
+                    if input_pago != "sim" and input_pago != "s":
+                        default_pago = False
+                elif quest_edit == "1":
+                    input_value = float(input("Digite o valor que deseja adicionar: \n").replace(",", "."))
+                    input_id = input("...e qual o [ID] da conta para alterar? \n")
 
             if options == responses[4]:
                 print("""

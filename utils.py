@@ -44,24 +44,16 @@ def create_table__(name_bd, name_table):
     if not name_bd:
         return None
     try:
-        print("\n DIGITE O NÚMERO: \n[1] - Pagamento\n[2] - Recebimento\n")
-        type_account__ = input("Qual tipo de conta voce quer criar: ").lower().strip()
         table = Table(name_bd, name_table)
-        if type_account__ == "2":
-            type_account = False
-            table.create_table(type_account=type_account)
-            print(f"[UTILS] Tabela {name_table} criada com sucesso")
-        elif type_account__ == "1":
-            type_account = True
-            table.create_table(type_account=type_account)
-            print(f"[UTILS] Tabela {name_table} criada com sucesso")
-        else:
-            return None
+        table.create_table()
+        print(f"[UTILS] Tabela {name_table} criada com sucesso")
 
         back_to_menu("siga")
 
     except Exception as e:
         print(e)
+
+    return None
 
 def view_table(name_db, name_table):
     if not name_db or not name_table:
@@ -114,25 +106,35 @@ def view_no_payments(name_db, name_table):
         print("[ERRO-UTILS-FILTERNOPAYMENT]: ", e)
     return None
 
-def update_data(name_db, name_table, id_, pago, data_pagamento):
+def update_data(name_db, name_table, id_, pago, data_pagamento,
+                quest_edit, input_id, input_value) -> None:
     if not id_:
         return None
-    try:
-        table = Table(name_db, name_table)
-        table.update(id_, pago, data_pagamento)
-        print(f"[UTILS] Dados atualizados do {id_} como {pago}")
+    if quest_edit == "2":
+        try:
+            table = Table(name_db, name_table)
+            table.update_payment(id_, pago, data_pagamento)
+            print(f"[UTILS] Dados atualizados do {id_} como {pago}")
 
-        back_to_menu("volte")
-    except Exception as e:
-        print("[ERRO-UTILS-ATUALIZACAO]: ", e)
+            back_to_menu("volte")
+        except Exception as e:
+            print("[ERRO-UTILS-ATUALIZACAO]: ", e)
+    elif quest_edit == "1":
+        try:
+            table = Table(name_db, name_table)
+            table.edit_value(input_id, input_value)
+            print(f"[UTILS] Valores atualizados do {id_} para {input_value}")
 
-def insert_data(name_db, name_table, description, validate, value__):
+            back_to_menu("volte")
+        except Exception as e:
+            print("[ERRO-UTILS-ATUALIZACAO]: ", e)
+
+def insert_data(name_db, name_table, description, validate: str | None, value__):
     try:
         df_table = Table(name_db, name_table)
+        df_table.insert_payments(description, validate, value__)
         print(f"[UTILS] dados inseridos na tabela {name_table}")
 
-        df_table.insert_payments(description, validate, value__)
-    
         back_to_menu("volte")
 
     except Exception as e:
