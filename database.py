@@ -44,7 +44,8 @@ class Table(DataBase):
                         vencimento TEXT NOT NULL,
                         valor DECIMAL(10, 2) NOT NULL,
                         pago BOOLEAN DEFAULT FALSE,
-                        data_pagamento TEXT DEFAULT NULL)"""
+                        data_pagamento TEXT DEFAULT NULL,
+                        observacao TEXT DEFAULT NULL)"""
             db = DataBase(self.name_db)
             db.connect()
             db.cursor.execute(query)
@@ -154,9 +155,10 @@ INSERT INTO {self.name_table} (descricao, valor, pago, data_pagamento) VALUES (?
 """         
             db = DataBase(self.name_table)
             db.connect()
-            db.conn.execute(query)
+            db.cursor.execute(query)
             db.conn.commit()
             db.close()
+            
         except TypeError as e:
             print("[DATABASE] Erro de Tipo de dado: ", e)
         except AttributeError as e:
@@ -218,5 +220,6 @@ INSERT INTO {self.name_table} (descricao, valor, pago, data_pagamento) VALUES (?
 
 
 if __name__ == '__main__':
-    table = Table("gestao_financeira_2026.db", "teste").delete_table()
+    table = Table("gestao_financeira_2026.db", "teste"
+                  ).delete_table()
 
