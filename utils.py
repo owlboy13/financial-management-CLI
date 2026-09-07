@@ -33,8 +33,10 @@ from database import Table
 import pandas as pd
 import sqlite3
 from sqlite3 import OperationalError
+import logging
 from pandas.errors import DatabaseError
 
+log = logging.getLogger(__name__)
 
 def back_to_menu(keyword):
     menu = input(f"\naperte [ENTER] e {keyword} para o menu...")
@@ -42,46 +44,51 @@ def back_to_menu(keyword):
 
 def create_table__(name_bd, name_table):
     if not name_bd:
+        log.error("[ERROR-UTILS] - Tabela Não Existe")
         return None
     try:
         table = Table(name_bd, name_table)
-        table.create_table()
-        print(f"[UTILS] Tabela {name_table} criada com sucesso")
+        
+        return table.create_table(), back_to_menu("siga")
 
-        back_to_menu("siga")
-
-    except Exception as e:
-        print(e)
+    except ValueError as e:
+        log.exception(e)
 
     return None
 
-def view_table(name_db, name_table):
-    if not name_db or not name_table:
-        print("[banco ou tabela não existem]")
-        return None
+def kpis_table(name_db, name_table):
     try:
         conn = sqlite3.connect(name_db)
         df = pd.read_sql(f"SELECT * FROM {name_table}", conn)
         total = df['valor'].sum()
         media = df['valor'].mean()
-        minimo = df['valor'].min(skipna=False)
+        minimo = df['valor'].min()
+        label_min = df.loc[df["valor"].idxmin(), "descricao"]
         maximo = df['valor'].max()
+        label_max = df.loc[df["valor"].idxmax(), "descricao"]
         dataframe__ = pd.DataFrame(df)
 
-        print(f"\nTabela {name_table}:\n{dataframe__}\n\nTotal: R$ {total:.2f} || Média: R$ {media:.2f} || Mínimo R$ {minimo:.2f} || Máximo: R$ {maximo:.2f} ||".replace(".", ","))
-        print("=="*40)
+        table_format = f"\nTabela {name_table}:\n{dataframe__}\n\nTotal: R$ {total:.2f} \nMédia: R$ {media:.2f} \nMínimo [{label_min}: R$ {minimo:.2f}] \nMáximo: [{label_max}: R$ {maximo:.2f}]".replace(".", ",")
+        log.info("DataFrame formatado")
+        return table_format
 
+    except DatabaseError as e:
+        log.exception(f"[ERROR-DATABASEERROR-KPIS] {e}")
 
-        back_to_menu("volte")
-
-    except Exception as e:
-        print("[ERRO-UTILS-LEITURA]: ", e)
+    except OperationalError as e:
+        log.exception(f"[ERROR-OPERATIONAL-KPIS] {e}")
+    
     return None
 
+
+def view_table(name_db, name_table):
+    kpis = kpis_table(name_db, name_table)
+    print(kpis)
+    print("=="*40)
+    back_to_menu("volte")
+
+
 def view_no_payments(name_db, name_table):
-    if not name_db or not name_table:
-        print("[banco ou tabela não existem]")
-        return None
     try:
         query_no_payments = f"""
                 SELECT id, descricao, valor, vencimento from {name_table} WHERE pago = 0

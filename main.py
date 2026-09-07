@@ -32,6 +32,7 @@ def main():
 
             default_pago = True
             input_id__ = None
+            input_value = None
 
             responses = [1, 2, 3, 4, 5, 6]
 
