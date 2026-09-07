@@ -80,104 +80,83 @@ def kpis_table(name_db, name_table):
     
     return None
 
+def filter_no_payments(name_db, name_table):
+    try:
+        query_no_payments = f"""
+                SELECT id, descricao, valor, vencimento from {name_table} WHERE pago = 0
+    """
+        conn = sqlite3.connect(name_db)
+        df_no_payments = pd.read_sql(query_no_payments, conn)
+        total_pendentes = df_no_payments['valor'].sum()
 
-def view_table(name_db, name_table):
-    kpis = kpis_table(name_db, name_table)
+        total_no_payments = f"\nFiltro {name_table} [PENDENTES]:\n{df_no_payments}\n\nTotal de Pendentes: R$ {total_pendentes:.2f}".replace(".", ",")
+
+        if df_no_payments.empty:
+
+            return f"\n[Todas as contas do {name_table} foram pagas]\n" 
+
+        return total_no_payments
+
+    except OperationalError as e:
+        log.exception(f"[OPERATIONALERROR-NOPAYMENTS]: {e}")
+
+    except DatabaseError as e:
+        log.exception(f"[DATABASEERROR-NOPAYMENTS] {e}")
+
+    return None
+
+def view_table(name_db, name_table, function):
+    kpis = function(name_db, name_table)
     print(kpis)
     print("=="*40)
     back_to_menu("volte")
 
 
-def view_no_payments(name_db, name_table):
-    try:
-        query_no_payments = f"""
-                SELECT id, descricao, valor, vencimento from {name_table} WHERE pago = 0
-"""
-        conn = sqlite3.connect(name_db)
-        df_no_payments = pd.read_sql(query_no_payments, conn)
-        total_pendentes = df_no_payments['valor'].sum()
-        query_payments = f"""
-                SELECT id, descricao, valor, vencimento from {name_table} WHERE pago = 1
-"""     
-        df_payments = pd.read_sql(query_payments, conn)
-        total_pago = df_payments['valor'].sum()
-        if df_no_payments.empty:
-            print(f"\n[Todas as contas do {name_table} foram pagas]\n")           
-        else:
-            print(f"\nFiltro {name_table} [PENDENTES]:\n{df_no_payments}\n\nTotal de Pendentes: R$ {total_pendentes:.2f}".replace(".", ","))
-        print(f"\nFiltro {name_table} [PAGOS]:\n{df_payments}\n\nTotal de Pago: R$ {total_pago:.2f}".replace(".", ","))
-        print("=="*40)
-
-        back_to_menu("volte")
-    except Exception as e:
-        print("[ERRO-UTILS-FILTERNOPAYMENT]: ", e)
-    return None
-
 def update_data(name_db, name_table, id_, pago, data_pagamento,
                 quest_edit, input_id, input_value) -> None:
-    if not id_:
-        return None
     if quest_edit == "2":
         try:
             table = Table(name_db, name_table)
             table.update_payment(id_, pago, data_pagamento)
-            print(f"[UTILS] Dados atualizados do {id_} como {pago}")
+            log.info(f"[UTILS] Dados atualizados do {id_} como {pago}")
 
             back_to_menu("volte")
-        except Exception as e:
-            print("[ERRO-UTILS-ATUALIZACAO]: ", e)
+        except ValueError as e:
+            log.exception("[ERRO-UTILS-ATUALIZACAO]: ", e)
     elif quest_edit == "1":
         try:
             table = Table(name_db, name_table)
             table.edit_value(input_id, input_value)
-            print(f"[UTILS] Valores atualizados do {id_} para {input_value}")
+            log.info(f"[UTILS] Valores atualizados do {id_} para {input_value}")
 
             back_to_menu("volte")
-        except Exception as e:
-            print("[ERRO-UTILS-ATUALIZACAO]: ", e)
+        except ValueError as e:
+            log.exception("[ERRO-UTILS-ATUALIZACAO]: ", e)
 
 def insert_data(name_db, name_table, description, validate: str | None, value__):
     try:
         df_table = Table(name_db, name_table)
         df_table.insert_payments(description, validate, value__)
-        print(f"[UTILS] dados inseridos na tabela {name_table}")
+        log.info(f"[UTILS] dados inseridos na tabela {name_table}")
 
         back_to_menu("volte")
 
-    except Exception as e:
-        print("[ERRO-UTILS-INSERCAO]: ", e)
-
-def add_column_table(name_db, name_table, column_name, datatype__, count_caracteres: str | None):
-    """
-        Função ainda não definidade e não está funcionando
-    
-    """
-    try:
-        table = Table(name_db, name_table)
-        table.alter_table(column_name, datatype__, count_caracteres)
-        print(f"[UTILS] Coluna {column_name} adicionada com sucesso")
-
-        back_to_menu("volte")
-
-    except OperationalError as e:
-        print("[ERRO-UTILS] Erro Operacional: ", e)
-
-    except Exception as e:
-        print("[ERRO-UTILS] Erro ao adicionar coluna: ", e)
+    except DatabaseError as e:
+        log.exception("[ERRO-UTILS-INSERCAO]: ", e)
 
 def delete_data(name_db, name_table, value__):  
     try:
         table = Table(name_db, name_table)
         table.delete_line(value__)
-        print(f"[UTILS] {value__} deletado com sucesso")
+        log.info(f"[UTILS] {value__} deletado com sucesso")
 
         back_to_menu("volte")
 
-    except Exception as e:
-        print("[ERRO-UTILS-DELETE]: ", e)
+    except DatabaseError as e:
+        log.exception("[ERRO-UTILS-DELETE]: ", e)
 
 
-def show_tables(database__):
+def query_all_tables(database__):
     try:
         conn = sqlite3.connect(database__)
         cursor = conn.cursor()
@@ -189,12 +168,17 @@ def show_tables(database__):
         columns_name = ["name_table"]
         df = pd.DataFrame(tables_names, columns=columns_name)
 
-        print(f"\nTabelas do [BD] --> {database__}:\n\n{df}\n")
+        tables__ = f"\nTabelas do [BD] --> {database__}:\n\n{df}\n"
 
-        return None
+        return tables__
         
     except OperationalError as e:
-        print(f"[ERRO-UTILS-SHOWTABELAS] Erro Operacional: {e}")
+        log.exception(f"[ERRO-UTILS-SHOWTABELAS] Erro Operacional: {e}")
+
+def show_tables(database__):
+    query_all = query_all_tables(database__)
+    print(query_all)
+
 
 def view_menu():
     print("""
@@ -219,6 +203,7 @@ def present_flow_finance():
     print("=="*40)
     print(f"\n{header}")
     print("=="*40)
+    log.info("Open FlowFinance")
 
     input("\nAperte [ENTER] para abrir o menu com opções...")
 

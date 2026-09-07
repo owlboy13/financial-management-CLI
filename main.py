@@ -1,7 +1,10 @@
 from pathlib import Path
-from utils import create_table__, view_table, insert_data, update_data
+from utils import create_table__, view_table, insert_data, update_data, kpis_table
 from utils import delete_data, view_menu, show_tables, present_flow_finance
 import datetime
+import logging
+
+log = logging.getLogger(__name__)
 
 BASE_DIR = Path(__file__).parent
 DATABASE = "gestao_financeira_2026.db"
@@ -18,7 +21,7 @@ def main():
         try:
             create_table__(name_bd=DATABASE, name_table=name_table)
         except ValueError as e:
-            print("[MAIN]: Erro ao criar tabela: ", e)
+            log.error("[MAIN]: Erro ao criar tabela: ", e)
     show_tables(DATABASE)
     input_table = str(input("Digite o nome da tabela que deseja manipular: ")).lower().strip() 
 
@@ -37,7 +40,8 @@ def main():
             responses = [1, 2, 3, 4, 5, 6]
 
             commands = {
-                1: lambda: view_table(name_db=DATABASE, name_table=input_table),
+                1: lambda: view_table(name_db=DATABASE, name_table=input_table, 
+                                      function=kpis_table),
                 2: lambda: insert_data(name_db=DATABASE, name_table=input_table,
                                     description=input_description,
                                     validate=input_validate,
@@ -91,15 +95,16 @@ def main():
 
             if options == 0:
                 print("\nSaindo do FlowFinance...")
+                log.info("Leaving FlowFinance")
                 break
 
             command()
 
         except ValueError as e:
-            print(f"[MAIN] Erro de Valor: {e}")
+            log.error(f"[MAIN] Erro de Valor: {e}")
 
         except AttributeError as e:
-            print(f"[MAIN] Erro de Atributo: {e}")
+            log.error(f"[MAIN] Erro de Atributo: {e}")
 
 if __name__ == '__main__':
     main()
