@@ -209,13 +209,3 @@ def present_flow_finance():
 
 def analyze_data(dataframe__):
     ...    
-
-if __name__ == '__main__':
-    # create_table__("teste.db", "GanhosTeste")
-    # create_table__("teste.db", "GastosTeste")
-    # insert_data("teste.db", "GanhosTeste", "Manutencao Laptop", "29/07/2026", 80)
-    # insert_data("teste.db", "GastosTeste", "Das MEI", "29/08/2026", 80.66)
-    # insert_data("teste.db", "GanhosTeste", "Venda de Software", "29/07/2026", 1900)
-    # insert_data("teste.db", "GastosTeste", "Conta de Luz", "29/08/2026", 300.58)
-    # update_data("teste.db", "GastosTeste", "1", True, "01/08/2026")
-    ...

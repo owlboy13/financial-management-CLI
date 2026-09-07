@@ -224,7 +224,4 @@ INSERT INTO {self.name_table} (descricao, valor, pago, data_pagamento) VALUES (?
             log.error(f"[DATABASE-ERRO-NOPAYMENTS-VALUE]: {e}")
 
 
-if __name__ == '__main__':
-    table = Table("gestao_financeira_2026.db", "teste"
-                  ).delete_table()
 
