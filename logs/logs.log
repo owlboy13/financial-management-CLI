@@ -4,3 +4,34 @@
 2026-09-07 16:29:58,161 - INFO - [UTILS] dados inseridos na tabela teste
 2026-09-07 16:30:09,169 - INFO - Leaving FlowFinance
 2026-09-07 16:30:13,295 - INFO - [QUERY] Tabela teste deletada
+2026-09-07 17:39:35,564 - INFO - Open FlowFinance
+2026-09-07 17:39:47,810 - ERROR - [ERROR-DATABASEERROR-KPIS] Execution failed on sql 'SELECT * FROM dsadasad': no such table: dsadasad
+Traceback (most recent call last):
+  File "/home/anderson_luiz/Anderson - Importante/Projetos/gestao-financeira/venv_gestao/lib/python3.12/site-packages/pandas/io/sql.py", line 2745, in execute
+    cur.execute(sql, *args)
+sqlite3.OperationalError: no such table: dsadasad
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/anderson_luiz/Anderson - Importante/Projetos/gestao-financeira/utils.py", line 62, in kpis_table
+    df = pd.read_sql(f"SELECT * FROM {name_table}", conn)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/anderson_luiz/Anderson - Importante/Projetos/gestao-financeira/venv_gestao/lib/python3.12/site-packages/pandas/io/sql.py", line 702, in read_sql
+    return pandas_sql.read_query(
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/anderson_luiz/Anderson - Importante/Projetos/gestao-financeira/venv_gestao/lib/python3.12/site-packages/pandas/io/sql.py", line 2809, in read_query
+    cursor = self.execute(sql, params)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/anderson_luiz/Anderson - Importante/Projetos/gestao-financeira/venv_gestao/lib/python3.12/site-packages/pandas/io/sql.py", line 2757, in execute
+    raise ex from exc
+pandas.errors.DatabaseError: Execution failed on sql 'SELECT * FROM dsadasad': no such table: dsadasad
+2026-09-07 17:40:20,217 - INFO - Leaving FlowFinance
+2026-09-07 17:48:55,492 - INFO - Open FlowFinance
+2026-09-07 17:49:08,888 - INFO - DataFrame formatado
+2026-09-07 17:51:23,691 - INFO - Open FlowFinance
+2026-09-07 17:52:00,404 - INFO - Leaving FlowFinance
+2026-09-07 17:52:01,809 - INFO - Open FlowFinance
+2026-09-07 17:52:07,768 - INFO - DataFrame formatado
+2026-09-07 17:52:19,365 - INFO - Leaving FlowFinance
+2026-09-07 18:00:44,632 - INFO - Open FlowFinance

@@ -180,9 +180,9 @@ def show_tables(database__):
     print(query_all)
 
 
-def view_menu():
-    print("""
-                \n ++ MANIPULE OS DADOS ++\n
+def view_menu(input_table):
+    print(f"""
+                \n ++ MANIPULE OS DADOS --> {input_table} ++\n
                 \n[1] - Visualizar Tabela
                 \n[2] - Inserir Dados
                 \n[3] - Atualizar Tabela

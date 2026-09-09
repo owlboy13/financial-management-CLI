@@ -29,7 +29,7 @@ def main():
 
         try:
 
-            view_menu()
+            view_menu(input_table)
 
             options = int(input("\nEscolha sua opção: "))
 
