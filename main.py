@@ -1,6 +1,6 @@
 from pathlib import Path
 from utils import create_table__, view_table, insert_data, update_data, kpis_table
-from utils import delete_data, view_menu, show_tables, present_flow_finance
+from utils import delete_data, view_menu, show_tables, present_flow_finance, query_all_tables
 import datetime
 import logging
 
@@ -21,9 +21,24 @@ def main():
         try:
             create_table__(name_bd=DATABASE, name_table=name_table)
         except ValueError as e:
-            log.error("[MAIN]: Erro ao criar tabela: ", e)
+            log.error("[MAIN]: Erro ao criar tabela: %s", e)
     show_tables(DATABASE)
-    input_table = str(input("Digite o nome da tabela que deseja manipular: ")).lower().strip() 
+    input_number_table = input("Digite o número da tabela que deseja manipular: ")
+
+    try:
+        
+        input_table = query_all_tables(DATABASE).loc[int(input_number_table)].item()
+
+    except ValueError as e:
+        log.warning(f"[MAIN] Input Table precisa ser um valor inteiro: {e}")
+        log.info("RE-opening FlowFinance")
+        main()
+        
+    except KeyError as e:
+        log.warning(f"[MAIN] Input Table precisa ser um valor positivo: {e}")
+        log.info("RE-opening FlowFinance")
+        main()
+
 
     while True:
 
@@ -56,6 +71,7 @@ def main():
                 4: lambda: print('\nestatisticas em breve...\n'),
                 5: lambda: delete_data(name_db=DATABASE, name_table=input_table,
                                     value__=input_id__),
+                6: lambda: show_tables(DATABASE),
             }
 
 
@@ -88,7 +104,16 @@ def main():
                     \nVisualize o [id] que deseja apagar\n
     """)
                 input_id__ = input("\ndigite o [id] que deseja apagar: \n")
+            if options == responses[5]:
 
+                show_tables(DATABASE)
+                
+                input_number_table = int(input("Digite o número da tabela que deseja manipular: "))
+
+                if not isinstance(input_number_table, int):
+                        raise TypeError("Escolha um valor inteiro e positivo...")
+                
+                input_table = query_all_tables(DATABASE).loc[input_number_table].item()
 
             if options in commands:
                 command = commands[options]

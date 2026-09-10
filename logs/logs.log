@@ -1,37 +1,24 @@
-2026-09-07 16:29:29,831 - INFO - Open FlowFinance
-2026-09-07 16:29:37,171 - INFO - Open FlowFinance
-2026-09-07 16:29:41,884 - INFO - [DATABASE] Banco de dados conectado e tabela criada com sucesso
-2026-09-07 16:29:58,161 - INFO - [UTILS] dados inseridos na tabela teste
-2026-09-07 16:30:09,169 - INFO - Leaving FlowFinance
-2026-09-07 16:30:13,295 - INFO - [QUERY] Tabela teste deletada
-2026-09-07 17:39:35,564 - INFO - Open FlowFinance
-2026-09-07 17:39:47,810 - ERROR - [ERROR-DATABASEERROR-KPIS] Execution failed on sql 'SELECT * FROM dsadasad': no such table: dsadasad
-Traceback (most recent call last):
-  File "/home/anderson_luiz/Anderson - Importante/Projetos/gestao-financeira/venv_gestao/lib/python3.12/site-packages/pandas/io/sql.py", line 2745, in execute
-    cur.execute(sql, *args)
-sqlite3.OperationalError: no such table: dsadasad
-
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "/home/anderson_luiz/Anderson - Importante/Projetos/gestao-financeira/utils.py", line 62, in kpis_table
-    df = pd.read_sql(f"SELECT * FROM {name_table}", conn)
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/anderson_luiz/Anderson - Importante/Projetos/gestao-financeira/venv_gestao/lib/python3.12/site-packages/pandas/io/sql.py", line 702, in read_sql
-    return pandas_sql.read_query(
-           ^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/anderson_luiz/Anderson - Importante/Projetos/gestao-financeira/venv_gestao/lib/python3.12/site-packages/pandas/io/sql.py", line 2809, in read_query
-    cursor = self.execute(sql, params)
-             ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/anderson_luiz/Anderson - Importante/Projetos/gestao-financeira/venv_gestao/lib/python3.12/site-packages/pandas/io/sql.py", line 2757, in execute
-    raise ex from exc
-pandas.errors.DatabaseError: Execution failed on sql 'SELECT * FROM dsadasad': no such table: dsadasad
-2026-09-07 17:40:20,217 - INFO - Leaving FlowFinance
-2026-09-07 17:48:55,492 - INFO - Open FlowFinance
-2026-09-07 17:49:08,888 - INFO - DataFrame formatado
-2026-09-07 17:51:23,691 - INFO - Open FlowFinance
-2026-09-07 17:52:00,404 - INFO - Leaving FlowFinance
-2026-09-07 17:52:01,809 - INFO - Open FlowFinance
-2026-09-07 17:52:07,768 - INFO - DataFrame formatado
-2026-09-07 17:52:19,365 - INFO - Leaving FlowFinance
-2026-09-07 18:00:44,632 - INFO - Open FlowFinance
+2026-09-10 15:52:55,578 - WARNING - [MAIN] Input Table precisa ser um valor inteiroinvalid literal for int() with base 10: 'asdasd'
+2026-09-10 15:52:55,578 - INFO - Open FlowFinance
+2026-09-10 15:53:49,907 - WARNING - [MAIN] Input Table precisa ser um valor positivo -200
+2026-09-10 15:53:49,907 - INFO - Open FlowFinance
+2026-09-10 15:54:05,260 - INFO - DataFrame formatado
+2026-09-10 15:54:11,417 - INFO - DataFrame formatado
+2026-09-10 15:57:31,945 - INFO - Leaving FlowFinance
+2026-09-10 15:57:50,883 - INFO - Open FlowFinance
+2026-09-10 15:58:55,093 - INFO - Open FlowFinance
+2026-09-10 16:02:36,082 - INFO - Open FlowFinance
+2026-09-10 16:02:48,016 - INFO - DataFrame formatado
+2026-09-10 16:03:34,062 - INFO - DataFrame formatado
+2026-09-10 16:03:41,329 - INFO - Leaving FlowFinance
+2026-09-10 16:04:14,975 - INFO - Open FlowFinance
+2026-09-10 16:04:19,920 - INFO - [DATABASE] Banco de dados conectado e tabela criada com sucesso
+2026-09-10 16:04:27,892 - ERROR - [MAIN] Erro de Valor: attempt to get argmin of an empty sequence
+2026-09-10 16:04:43,922 - INFO - [UTILS] dados inseridos na tabela teste
+2026-09-10 16:04:45,626 - INFO - DataFrame formatado
+2026-09-10 16:05:00,873 - INFO - [UTILS] Dados atualizados do 1 como True
+2026-09-10 16:05:02,970 - INFO - DataFrame formatado
+2026-09-10 16:05:26,728 - INFO - [UTILS] 1 deletado com sucesso
+2026-09-10 16:05:54,682 - ERROR - [MAIN] Erro de Valor: could not convert string to float: ''
+2026-09-10 16:06:07,793 - INFO - Leaving FlowFinance
+2026-09-10 16:07:23,584 - INFO - [QUERY] Tabela teste deletada

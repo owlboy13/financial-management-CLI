@@ -52,7 +52,7 @@ def create_table__(name_bd, name_table):
         return table.create_table(), back_to_menu("siga")
 
     except ValueError as e:
-        log.exception(e)
+        log.exception(f"[ERROR-UTILS] Erro de Tipo de valor: {e}")
 
     return None
 
@@ -68,7 +68,7 @@ def kpis_table(name_db, name_table):
         label_max = df.loc[df["valor"].idxmax(), "descricao"]
         dataframe__ = pd.DataFrame(df)
 
-        table_format = f"\nTabela {name_table}:\n{dataframe__}\n\nTotal: R$ {total:.2f} \nMédia: R$ {media:.2f} \nMínimo [{label_min}: R$ {minimo:.2f}] \nMáximo: [{label_max}: R$ {maximo:.2f}]".replace(".", ",")
+        table_format = f"\nTABELA {name_table.upper()}:\n{dataframe__}\n\nTotal: R$ {total:.2f} \nMédia: R$ {media:.2f} \nMínimo [{label_min}: R$ {minimo:.2f}] \nMáximo: [{label_max}: R$ {maximo:.2f}]".replace(".", ",")
         log.info("DataFrame formatado")
         return table_format
 
@@ -122,7 +122,7 @@ def update_data(name_db, name_table, id_, pago, data_pagamento,
 
             back_to_menu("volte")
         except ValueError as e:
-            log.exception("[ERRO-UTILS-ATUALIZACAO]: ", e)
+            log.exception(f"[ERRO-UTILS-ATUALIZACAO]: {e}")
     elif quest_edit == "1":
         try:
             table = Table(name_db, name_table)
@@ -131,7 +131,7 @@ def update_data(name_db, name_table, id_, pago, data_pagamento,
 
             back_to_menu("volte")
         except ValueError as e:
-            log.exception("[ERRO-UTILS-ATUALIZACAO]: ", e)
+            log.exception(f"[ERRO-UTILS-ATUALIZACAO]: {e}")
 
 def insert_data(name_db, name_table, description, validate: str | None, value__):
     try:
@@ -142,7 +142,7 @@ def insert_data(name_db, name_table, description, validate: str | None, value__)
         back_to_menu("volte")
 
     except DatabaseError as e:
-        log.exception("[ERRO-UTILS-INSERCAO]: ", e)
+        log.exception(f"[ERRO-UTILS-INSERCAO]: {e}")
 
 def delete_data(name_db, name_table, value__):  
     try:
@@ -153,7 +153,7 @@ def delete_data(name_db, name_table, value__):
         back_to_menu("volte")
 
     except DatabaseError as e:
-        log.exception("[ERRO-UTILS-DELETE]: ", e)
+        log.exception(f"[ERRO-UTILS-DELETE]: {e}")
 
 
 def query_all_tables(database__):
@@ -165,30 +165,45 @@ def query_all_tables(database__):
 
         tables = cursor.fetchall()
         tables_names = [table for table in tables if not "sqlite_sequence" in table]
-        columns_name = ["name_table"]
-        df = pd.DataFrame(tables_names, columns=columns_name)
+        indice_tables = len(tables_names)
+        columns_name = ["Tabelas"]
+        df = pd.DataFrame(data=tables_names, columns=columns_name)
 
-        tables__ = f"\nTabelas do [BD] --> {database__}:\n\n{df}\n"
-
-        return tables__
+        return df
         
     except OperationalError as e:
         log.exception(f"[ERRO-UTILS-SHOWTABELAS] Erro Operacional: {e}")
 
 def show_tables(database__):
     query_all = query_all_tables(database__)
-    print(query_all)
-
+    headler = f"""\n
+▗▄▄▄▖▗▄▖ ▗▄▄▖ ▗▄▄▄▖▗▖    ▗▄▖  ▗▄▄▖    ▗▄▄▄  ▗▄▖     ▗▄▄▖ ▗▄▄▄ 
+  █ ▐▌ ▐▌▐▌ ▐▌▐▌   ▐▌   ▐▌ ▐▌▐▌       ▐▌  █▐▌ ▐▌    ▐▌ ▐▌▐▌  █
+  █ ▐▛▀▜▌▐▛▀▚▖▐▛▀▀▘▐▌   ▐▛▀▜▌ ▝▀▚▖    ▐▌  █▐▌ ▐▌    ▐▛▀▚▖▐▌  █
+  █ ▐▌ ▐▌▐▙▄▞▘▐▙▄▄▖▐▙▄▄▖▐▌ ▐▌▗▄▄▞▘    ▐▙▄▄▀▝▚▄▞▘    ▐▙▄▞▘▐▙▄▄▀
+                                                              
+                                                              
+\n--> {database__.upper()[:22]}:\n\n{query_all}\n
+"""
+    print(headler)
 
 def view_menu(input_table):
     print(f"""
-                \n ++ MANIPULE OS DADOS --> {input_table} ++\n
+                \n
+▗▖  ▗▖ ▗▄▖ ▗▖  ▗▖▗▄▄▄▖▗▄▄▖ ▗▖ ▗▖▗▖   ▗▄▄▄▖     ▗▄▖  ▗▄▄▖    ▗▄▄▄  ▗▄▖ ▗▄▄▄  ▗▄▖  ▗▄▄▖
+▐▛▚▞▜▌▐▌ ▐▌▐▛▚▖▐▌  █  ▐▌ ▐▌▐▌ ▐▌▐▌   ▐▌       ▐▌ ▐▌▐▌       ▐▌  █▐▌ ▐▌▐▌  █▐▌ ▐▌▐▌   
+▐▌  ▐▌▐▛▀▜▌▐▌ ▝▜▌  █  ▐▛▀▘ ▐▌ ▐▌▐▌   ▐▛▀▀▘    ▐▌ ▐▌ ▝▀▚▖    ▐▌  █▐▛▀▜▌▐▌  █▐▌ ▐▌ ▝▀▚▖
+▐▌  ▐▌▐▌ ▐▌▐▌  ▐▌▗▄█▄▖▐▌   ▝▚▄▞▘▐▙▄▄▖▐▙▄▄▖    ▝▚▄▞▘▗▄▄▞▘    ▐▙▄▄▀▐▌ ▐▌▐▙▄▄▀▝▚▄▞▘▗▄▄▞▘                                                                             
+                                                                                                                                                         
+                \n==> [{input_table.upper()}] <==\n
                 \n[1] - Visualizar Tabela
                 \n[2] - Inserir Dados
                 \n[3] - Atualizar Tabela
                 \n[4] - Estatísticas
                 \n[5] - Deletar Conta ou Recebimento
+                \n[6] - Alternar de Tabela
                 \n[0] - Sair
+                
     """)
 
 def present_flow_finance():

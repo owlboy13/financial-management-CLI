@@ -57,9 +57,9 @@ class Table(DataBase):
             db.conn.commit()
             log.info("[DATABASE] Banco de dados conectado e tabela criada com sucesso")
         except TypeError as e:
-            log.error("[DATABASE] Erro de tipo de arquivos:", e)
+            log.error(f"[DATABASE] Erro de tipo de arquivos:{e}")
         except AttributeError as e:
-            log.error("[DATABASE] Erro de Atributo", e)
+            log.error(f"[DATABASE] Erro de Atributo {e}")
 
 
     def read_table(self):
@@ -75,9 +75,9 @@ SELECT * FROM {self.name_table}
                 print(row)
             db.conn.commit()
         except TypeError as e:
-            log.error("[DATABASE] Erro", e)
+            log.error(f"[DATABASE] Erro {e}")
         except AttributeError as e:
-            log.error("[DATABASE] Erro de Atributo", e)
+            log.error(f"[DATABASE] Erro de Atributo {e}")
 
     def insert_payments(self, descricao, vencimento, valor):
         try:
@@ -90,11 +90,11 @@ INSERT INTO {self.name_table} (descricao, vencimento, valor) VALUES (?, ?, ?);
             db.conn.commit()
             db.close()
         except TypeError as e:
-            log.error("[DATABASE] Erro de Tipo de dado: ", e)
+            log.error(f"[DATABASE] Erro de Tipo de dado: {e}")
         except AttributeError as e:
-            log.error("[DATABASE] Erro de Atributo: ", e)
+            log.error(f"[DATABASE] Erro de Atributo: {e}")
         except OperationalError as e:
-            log.error("[DATABASE] Erro Operacional: ", e)
+            log.error(f"[DATABASE] Erro Operacional: {e}")
 
     def insert_recept(self, descricao, valor, pago, data_pagamento):
         try:
@@ -107,11 +107,11 @@ INSERT INTO {self.name_table} (descricao, valor, pago, data_pagamento) VALUES (?
             db.conn.commit()
             db.close()
         except TypeError as e:
-            log.error("[DATABASE] Erro de Tipo de dado: ", e)
+            log.error(f"[DATABASE] Erro de Tipo de dado: {e}")
         except AttributeError as e:
-            log.error("[DATABASE] Erro de Atributo: ", e)
+            log.error(f"[DATABASE] Erro de Atributo: {e}")
         except OperationalError as e:
-            log.error("[DATABASE] Erro Operacional: ", e)           
+            log.error(f"[DATABASE] Erro Operacional: {e}")           
 
     def update_payment(self, id, pago, data_pagamento):
         try:
@@ -124,11 +124,11 @@ INSERT INTO {self.name_table} (descricao, valor, pago, data_pagamento) VALUES (?
             db.conn.commit()
             db.close()
         except TypeError as e:
-            log.error("[DATABASE] Erro de Tipo de dado: ", e)
+            log.error(f"[DATABASE] Erro de Tipo de dado: {e}")
         except AttributeError as e:
-            log.error("[DATABASE] Erro de Atributo: ", e)
+            log.error(f"[DATABASE] Erro de Atributo: {e}")
         except OperationalError as e:
-            log.error("[DATABASE] Erro Operacional: ", e)
+            log.error(f"[DATABASE] Erro Operacional: {e}")
 
     def edit_value(self, id_, value_):
         if value_ == 0 or value_ == None:
@@ -143,9 +143,9 @@ INSERT INTO {self.name_table} (descricao, valor, pago, data_pagamento) VALUES (?
             db.conn.commit()
             db.close()
         except ValueError as e:
-            log.error("[DATABASE-ERROR-EDITVALUE]: ", e)
+            log.error(f"[DATABASE-ERROR-EDITVALUE]: {e}")
         except OperationalError as e:
-            log.error("[DATABASE-ERROr-EDITVALUE]: ", e)
+            log.error(f"[DATABASE-ERROr-EDITVALUE]: {e}")
 
         return None
 
@@ -165,11 +165,11 @@ INSERT INTO {self.name_table} (descricao, valor, pago, data_pagamento) VALUES (?
             db.close()
             
         except TypeError as e:
-            log.error("[DATABASE] Erro de Tipo de dado: ", e)
+            log.error(f"[DATABASE] Erro de Tipo de dado: {e}")
         except AttributeError as e:
-            log.error("[DATABASE] Erro de Atributo: ", e)
+            log.error(f"[DATABASE] Erro de Atributo: {e}")
         except OperationalError as e:
-            log.error("[DATABASE] Erro Operacional: ", e)
+            log.error(f"[DATABASE] Erro Operacional: {e}")
 
     def delete_line(self, value__):
         try:
@@ -182,13 +182,13 @@ INSERT INTO {self.name_table} (descricao, valor, pago, data_pagamento) VALUES (?
             db.conn.commit()
             db.close()
         except TypeError as e:
-            log.error("[DATABASE] Erro de Tipo de dado: ", e)
+            log.error(f"[DATABASE] Erro de Tipo de dado: {e}")
         except AttributeError as e:
-            log.error("[DATABASE] Erro de Atributo: ", e)
+            log.error(f"[DATABASE] Erro de Atributo: {e}")
         except OperationalError as e:
-            log.error("[DATABASE] Erro Operacional: ", e)
+            log.error(f"[DATABASE] Erro Operacional: {e}")
         except ProgrammingError as e:
-            log.error("[DATABASE] Erro de Programação: ", e)
+            log.error(f"[DATABASE] Erro de Programação: {e}")
 
     def delete_table(self):
         try:
@@ -201,10 +201,10 @@ INSERT INTO {self.name_table} (descricao, valor, pago, data_pagamento) VALUES (?
             db.conn.commit()
             log.info(f"[QUERY] Tabela {self.name_table} deletada")
         except ValueError as e:
-            log.error(f"[ERRO-QUERY-VALOR]: ", e)
+            log.error(f"[ERRO-QUERY-VALOR]: {e}")
 
         except OperationalError as e:
-            log.error(f"[ERRO-QUERY-OPERATIONAL]: ", e)
+            log.error(f"[ERRO-QUERY-OPERATIONAL]: {e}")
 
     def no_payments(self):
         try:
@@ -222,6 +222,4 @@ INSERT INTO {self.name_table} (descricao, valor, pago, data_pagamento) VALUES (?
             log.error(f"[DATABASE-ERRO-NOPAYMENTS-OPERATIONAL: {e}")
         except ValueError as e:
             log.error(f"[DATABASE-ERRO-NOPAYMENTS-VALUE]: {e}")
-
-
 
