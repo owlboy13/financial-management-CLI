@@ -3,11 +3,15 @@ from utils import create_table__, view_table, insert_data, update_data, kpis_tab
 from utils import delete_data, view_menu, show_tables, present_flow_finance, query_all_tables
 import datetime
 import logging
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 log = logging.getLogger(__name__)
 
 BASE_DIR = Path(__file__).parent
-DATABASE = "gestao_financeira_2026.db"
+DATABASE = os.getenv("DATABASE")
 DATE_NOW = datetime.datetime.now()
 FORMAT_DATE_NOW = datetime.datetime.strftime(DATE_NOW, "%d/%m/%Y %H:%M:%S")
 

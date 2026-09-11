@@ -22,3 +22,5 @@
 2026-09-10 16:05:54,682 - ERROR - [MAIN] Erro de Valor: could not convert string to float: ''
 2026-09-10 16:06:07,793 - INFO - Leaving FlowFinance
 2026-09-10 16:07:23,584 - INFO - [QUERY] Tabela teste deletada
+2026-09-11 10:53:41,749 - INFO - Open FlowFinance
+2026-09-11 10:53:53,077 - INFO - DataFrame formatado
