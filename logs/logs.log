@@ -1,26 +1,177 @@
-2026-09-10 15:52:55,578 - WARNING - [MAIN] Input Table precisa ser um valor inteiroinvalid literal for int() with base 10: 'asdasd'
-2026-09-10 15:52:55,578 - INFO - Open FlowFinance
-2026-09-10 15:53:49,907 - WARNING - [MAIN] Input Table precisa ser um valor positivo -200
-2026-09-10 15:53:49,907 - INFO - Open FlowFinance
-2026-09-10 15:54:05,260 - INFO - DataFrame formatado
-2026-09-10 15:54:11,417 - INFO - DataFrame formatado
-2026-09-10 15:57:31,945 - INFO - Leaving FlowFinance
-2026-09-10 15:57:50,883 - INFO - Open FlowFinance
-2026-09-10 15:58:55,093 - INFO - Open FlowFinance
-2026-09-10 16:02:36,082 - INFO - Open FlowFinance
-2026-09-10 16:02:48,016 - INFO - DataFrame formatado
-2026-09-10 16:03:34,062 - INFO - DataFrame formatado
-2026-09-10 16:03:41,329 - INFO - Leaving FlowFinance
-2026-09-10 16:04:14,975 - INFO - Open FlowFinance
-2026-09-10 16:04:19,920 - INFO - [DATABASE] Banco de dados conectado e tabela criada com sucesso
-2026-09-10 16:04:27,892 - ERROR - [MAIN] Erro de Valor: attempt to get argmin of an empty sequence
-2026-09-10 16:04:43,922 - INFO - [UTILS] dados inseridos na tabela teste
-2026-09-10 16:04:45,626 - INFO - DataFrame formatado
-2026-09-10 16:05:00,873 - INFO - [UTILS] Dados atualizados do 1 como True
-2026-09-10 16:05:02,970 - INFO - DataFrame formatado
-2026-09-10 16:05:26,728 - INFO - [UTILS] 1 deletado com sucesso
-2026-09-10 16:05:54,682 - ERROR - [MAIN] Erro de Valor: could not convert string to float: ''
-2026-09-10 16:06:07,793 - INFO - Leaving FlowFinance
-2026-09-10 16:07:23,584 - INFO - [QUERY] Tabela teste deletada
-2026-09-11 10:53:41,749 - INFO - Open FlowFinance
-2026-09-11 10:53:53,077 - INFO - DataFrame formatado
+2026-09-15 09:20:15,323 - INFO - Open FlowFinance
+2026-09-15 09:20:25,017 - INFO - DataFrame formatado
+2026-09-15 09:21:19,154 - INFO - Leaving FlowFinance
+2026-09-15 09:21:21,758 - INFO - Open FlowFinance
+2026-09-15 09:24:27,299 - INFO - Leaving FlowFinance
+2026-09-15 09:24:29,290 - INFO - Open FlowFinance
+2026-09-15 09:25:26,464 - INFO - Leaving FlowFinance
+2026-09-15 09:25:27,886 - INFO - Open FlowFinance
+2026-09-15 09:25:44,706 - INFO - Leaving FlowFinance
+2026-09-15 09:42:12,510 - INFO - Open FlowFinance
+2026-09-15 09:47:02,160 - INFO - Leaving FlowFinance
+2026-09-15 09:47:03,398 - INFO - Open FlowFinance
+2026-09-15 09:55:33,094 - INFO - Leaving FlowFinance
+2026-09-15 09:55:34,711 - INFO - Open FlowFinance
+2026-09-15 09:55:37,601 - INFO - SubPlots Gerados
+2026-09-15 09:56:26,600 - INFO - DataFrame formatado
+2026-09-15 13:52:18,615 - INFO - SubPlots Gerados
+2026-09-15 13:52:57,275 - INFO - Open FlowFinance
+2026-09-15 13:53:00,590 - INFO - SubPlots Gerados
+2026-09-15 13:53:08,816 - INFO - Leaving FlowFinance
+2026-09-15 13:53:11,088 - INFO - Open FlowFinance
+2026-09-15 13:53:13,885 - INFO - SubPlots Gerados
+2026-09-15 13:55:13,240 - INFO - Leaving FlowFinance
+2026-09-15 13:55:14,397 - INFO - Open FlowFinance
+2026-09-15 13:55:18,205 - INFO - SubPlots Gerados
+2026-09-15 13:55:41,601 - INFO - Leaving FlowFinance
+2026-09-15 13:55:43,607 - INFO - Open FlowFinance
+2026-09-15 13:55:46,832 - INFO - SubPlots Gerados
+2026-09-15 13:56:31,233 - INFO - Leaving FlowFinance
+2026-09-15 13:56:33,165 - INFO - Open FlowFinance
+2026-09-15 13:56:35,359 - INFO - SubPlots Gerados
+2026-09-15 13:56:55,617 - INFO - Leaving FlowFinance
+2026-09-15 13:56:57,475 - INFO - Open FlowFinance
+2026-09-15 13:57:00,099 - INFO - SubPlots Gerados
+2026-09-15 13:57:13,096 - INFO - Leaving FlowFinance
+2026-09-15 13:57:19,553 - INFO - Open FlowFinance
+2026-09-15 13:57:24,732 - INFO - SubPlots Gerados
+2026-09-15 13:57:45,601 - INFO - Leaving FlowFinance
+2026-09-15 13:57:47,527 - INFO - Open FlowFinance
+2026-09-15 13:57:49,925 - INFO - SubPlots Gerados
+2026-09-15 13:58:58,161 - INFO - Leaving FlowFinance
+2026-09-15 13:58:59,454 - INFO - Open FlowFinance
+2026-09-15 13:59:02,136 - INFO - SubPlots Gerados
+2026-09-15 16:23:53,441 - INFO - SubPlots Gerados
+2026-09-15 16:24:09,264 - INFO - Leaving FlowFinance
+2026-09-15 18:16:15,502 - INFO - Open FlowFinance
+2026-09-15 18:16:19,367 - INFO - SubPlots Gerados
+2026-09-15 18:16:45,287 - INFO - Leaving FlowFinance
+2026-09-15 18:16:46,521 - INFO - Open FlowFinance
+2026-09-15 18:16:51,876 - INFO - SubPlots Gerados
+2026-09-15 18:18:16,912 - INFO - Leaving FlowFinance
+2026-09-15 18:18:18,687 - INFO - Open FlowFinance
+2026-09-15 18:18:24,164 - INFO - SubPlots Gerados
+2026-09-15 18:19:53,312 - INFO - Leaving FlowFinance
+2026-09-15 18:19:54,534 - INFO - Open FlowFinance
+2026-09-15 18:19:57,098 - ERROR - [UTILS] - Erro ao gerar gráfico 
+    Invalid value of type 'pandas.Series' received for the 'hoverlabel' property of pie
+        Received value: 0     Internet
+1          MEI
+2       Nubank
+3         Neon
+4    Faculdade
+5          Tim
+6    conta_luz
+Name: descricao, dtype: str
+
+    The 'hoverlabel' property is an instance of Hoverlabel
+    that may be specified as:
+      - An instance of :class:`plotly.graph_objs.pie.Hoverlabel`
+      - A dict of string/value properties that will be passed
+        to the Hoverlabel constructor
+2026-09-15 18:20:59,296 - INFO - Leaving FlowFinance
+2026-09-15 18:21:00,565 - INFO - Open FlowFinance
+2026-09-15 18:21:03,229 - ERROR - [UTILS] - Erro ao gerar gráfico 
+    Invalid value of type 'builtins.str' received for the 'legend' property of pie
+        Received value: 'legend'
+
+    The 'legend' property is an identifier of a particular
+    subplot, of type 'legend', that may be specified as:
+      - the string 'legend' optionally followed by an integer >= 1
+        (e.g. 'legend', 'legend1', 'legend2', 'legend3', etc.)
+      - A tuple or list of the above
+2026-09-15 18:22:02,169 - INFO - Leaving FlowFinance
+2026-09-15 18:22:03,770 - INFO - Open FlowFinance
+2026-09-15 18:22:07,270 - INFO - SubPlots Gerados
+2026-09-15 18:25:26,674 - INFO - Leaving FlowFinance
+2026-09-15 18:25:28,614 - INFO - Open FlowFinance
+2026-09-15 18:25:31,043 - ERROR - [UTILS] - Erro ao gerar gráfico 
+    Invalid value of type 'builtins.str' received for the 'mode' property of scatter3d
+        Received value: 'bar'
+
+    The 'mode' property is a flaglist and may be specified
+    as a string containing:
+      - Any combination of ['lines', 'markers', 'text'] joined with '+' characters
+        (e.g. 'lines+markers')
+        OR exactly one of ['none'] (e.g. 'none')
+2026-09-15 18:25:41,994 - INFO - Leaving FlowFinance
+2026-09-15 18:25:43,240 - INFO - Open FlowFinance
+2026-09-15 18:25:45,746 - ERROR - [UTILS] - Erro ao gerar gráfico 
+    Invalid value of type 'builtins.str' received for the 'mode' property of scatter3d
+        Received value: 'bars'
+
+    The 'mode' property is a flaglist and may be specified
+    as a string containing:
+      - Any combination of ['lines', 'markers', 'text'] joined with '+' characters
+        (e.g. 'lines+markers')
+        OR exactly one of ['none'] (e.g. 'none')
+2026-09-15 18:26:03,961 - INFO - Leaving FlowFinance
+2026-09-15 18:26:05,871 - INFO - Open FlowFinance
+2026-09-15 18:26:08,229 - INFO - SubPlots Gerados
+2026-09-15 18:26:57,770 - INFO - Leaving FlowFinance
+2026-09-15 18:26:58,951 - INFO - Open FlowFinance
+2026-09-15 18:27:01,010 - INFO - SubPlots Gerados
+2026-09-15 18:27:16,115 - INFO - DataFrame formatado
+2026-09-15 18:28:56,947 - INFO - Leaving FlowFinance
+2026-09-15 18:28:58,160 - INFO - Open FlowFinance
+2026-09-15 18:29:01,044 - INFO - SubPlots Gerados
+2026-09-15 18:29:17,476 - INFO - Leaving FlowFinance
+2026-09-15 18:29:18,626 - INFO - Open FlowFinance
+2026-09-15 18:29:21,073 - INFO - SubPlots Gerados
+2026-09-15 18:38:24,671 - INFO - Leaving FlowFinance
+2026-09-15 18:49:49,105 - INFO - Open FlowFinance
+2026-09-15 18:49:52,047 - INFO - SubPlots Gerados
+2026-09-15 18:52:22,256 - INFO - SubPlots Gerados
+2026-09-15 18:55:16,171 - INFO - DataFrame formatado
+2026-09-15 19:04:55,677 - INFO - Leaving FlowFinance
+2026-09-24 09:28:32,193 - INFO - Open FlowFinance
+2026-09-24 09:28:40,214 - INFO - DataFrame formatado
+2026-09-24 09:30:03,882 - INFO - [UTILS] dados inseridos na tabela receita_setembro
+2026-09-24 09:30:05,900 - INFO - DataFrame formatado
+2026-09-24 09:30:24,092 - INFO - [UTILS] 4 deletado com sucesso
+2026-09-24 09:30:27,708 - INFO - DataFrame formatado
+2026-09-24 09:30:47,114 - INFO - [UTILS] dados inseridos na tabela receita_setembro
+2026-09-24 09:30:48,807 - INFO - DataFrame formatado
+2026-09-24 09:31:13,922 - INFO - [UTILS] Dados atualizados do 5 como True
+2026-09-24 09:31:17,425 - INFO - DataFrame formatado
+2026-09-24 09:37:44,326 - INFO - DataFrame formatado
+2026-09-24 09:37:53,614 - INFO - DataFrame formatado
+2026-09-24 10:34:01,023 - INFO - SubPlots Gerados
+2026-09-24 10:34:42,073 - INFO - SubPlots Gerados
+2026-09-24 10:40:57,681 - INFO - Leaving FlowFinance
+2026-09-30 11:39:26,306 - INFO - Open FlowFinance
+2026-09-30 11:45:45,784 - INFO - DataFrame formatado
+2026-09-30 11:45:58,769 - INFO - DataFrame formatado
+2026-09-30 11:46:03,626 - INFO - Open FlowFinance
+2026-09-30 11:46:24,238 - WARNING - [MAIN] Input Table precisa ser um valor inteiro: invalid literal for int() with base 10: 'asda'
+2026-09-30 11:46:24,238 - INFO - RE-opening FlowFinance
+2026-09-30 11:46:24,238 - INFO - Open FlowFinance
+2026-09-30 11:46:37,132 - INFO - [DATABASE] Banco de dados conectado e tabela criada com sucesso
+2026-09-30 11:52:41,002 - INFO - [UTILS] dados inseridos na tabela gastos_outubro
+2026-09-30 14:04:49,263 - INFO - Leaving FlowFinance
+2026-09-30 14:11:56,856 - INFO - DataFrame formatado
+2026-09-30 14:12:09,201 - INFO - DataFrame formatado
+2026-09-30 17:25:01,073 - INFO - Open FlowFinance
+2026-09-30 17:25:12,191 - INFO - DataFrame formatado
+2026-09-30 17:25:24,797 - INFO - DataFrame formatado
+2026-09-30 17:25:58,541 - INFO - [UTILS] dados inseridos na tabela gastos_outubro
+2026-09-30 17:27:05,599 - INFO - Open FlowFinance
+2026-09-30 17:27:09,574 - INFO - DataFrame formatado
+2026-09-30 17:27:30,093 - INFO - [UTILS] dados inseridos na tabela gastos_outubro
+2026-09-30 17:28:29,582 - INFO - [UTILS] dados inseridos na tabela gastos_outubro
+2026-09-30 17:28:48,360 - INFO - [UTILS] dados inseridos na tabela gastos_outubro
+2026-09-30 17:29:30,485 - INFO - [UTILS] dados inseridos na tabela gastos_outubro
+2026-09-30 17:30:01,750 - INFO - [UTILS] dados inseridos na tabela gastos_outubro
+2026-09-30 17:30:29,782 - INFO - [UTILS] dados inseridos na tabela gastos_outubro
+2026-09-30 17:30:31,541 - INFO - DataFrame formatado
+2026-09-30 17:32:28,080 - INFO - Leaving FlowFinance
+2026-09-30 17:33:16,051 - INFO - SubPlots Gerados
+2026-09-30 17:35:25,103 - INFO - [UTILS] Dados atualizados do 1 como True
+2026-09-30 17:35:27,312 - INFO - DataFrame formatado
+2026-09-30 17:35:33,836 - INFO - SubPlots Gerados
+2026-09-30 17:37:50,384 - INFO - [UTILS] Dados atualizados do 5 como True
+2026-09-30 17:37:53,296 - INFO - DataFrame formatado
+2026-09-30 17:50:24,634 - INFO - Open FlowFinance
+2026-09-30 17:50:29,327 - INFO - DataFrame formatado
+2026-09-30 17:50:46,694 - INFO - DataFrame formatado
+2026-09-30 17:51:26,175 - INFO - Leaving FlowFinance

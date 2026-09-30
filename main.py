@@ -1,6 +1,6 @@
 from pathlib import Path
-from utils import create_table__, view_table, insert_data, update_data, kpis_table
-from utils import delete_data, view_menu, show_tables, present_flow_finance, query_all_tables
+from utils import create_table__, view_table, insert_data, update_data, kpis_table, delete_data
+from utils import view_menu, show_tables, present_flow_finance, query_all_tables, analyze_data
 import datetime
 import logging
 import os
@@ -64,7 +64,8 @@ def main():
                 2: lambda: insert_data(name_db=DATABASE, name_table=input_table,
                                     description=input_description,
                                     validate=input_validate,
-                                    value__=input_value),
+                                    value__=input_value,
+                                    observation=input_observation),
                 3: lambda: update_data(name_db=DATABASE, name_table=input_table,
                                     id_=input_id,
                                     pago=default_pago,
@@ -72,7 +73,7 @@ def main():
                                     quest_edit=quest_edit,
                                     input_id=input_id,
                                     input_value=input_value),
-                4: lambda: print('\nestatisticas em breve...\n'),
+                4: lambda: analyze_data(name_db=DATABASE, name_table=input_table), 
                 5: lambda: delete_data(name_db=DATABASE, name_table=input_table,
                                     value__=input_id__),
                 6: lambda: show_tables(DATABASE),
@@ -87,6 +88,7 @@ def main():
                     input_description = input("descreva a conta a pagar ou receber: \n")
                     input_validate = input("digite a data de vencimento ou recebimento: \n")
                     input_value = float(input("digite o valor: (R$) \n").replace(",", "."))
+                    input_observation = input("Deixe sua observação ou aperte [ENTER]: \n")
 
             if options == responses[2]:
                 print("""

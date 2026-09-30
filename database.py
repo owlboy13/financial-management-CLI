@@ -3,7 +3,10 @@ from sqlite3 import OperationalError, ProgrammingError
 import logging
 
 log = logging.getLogger(__name__)
-logging.basicConfig(format='%(asctime)s - %(levelname)s - %(message)s', filename='./logs/logs.log', encoding='utf-8', level=logging.DEBUG)
+logging.basicConfig(format='%(asctime)s - %(levelname)s - %(message)s', 
+                    filename='./logs/logs.log',
+                    encoding='utf-8',
+                    level=logging.DEBUG)
 
 
 class DataBase:
@@ -79,14 +82,14 @@ SELECT * FROM {self.name_table}
         except AttributeError as e:
             log.error(f"[DATABASE] Erro de Atributo {e}")
 
-    def insert_payments(self, descricao, vencimento, valor):
+    def insert_payments(self, descricao, vencimento, valor, observacao):
         try:
             query = f"""
-INSERT INTO {self.name_table} (descricao, vencimento, valor) VALUES (?, ?, ?);
+INSERT INTO {self.name_table} (descricao, vencimento, valor, observacao) VALUES (?, ?, ?, ?);
 """
             db = DataBase(self.name_db)
             db.connect()
-            db.cursor.execute(query, (descricao, vencimento, valor))
+            db.cursor.execute(query, (descricao, vencimento, valor, observacao))
             db.conn.commit()
             db.close()
         except TypeError as e:
@@ -222,4 +225,3 @@ INSERT INTO {self.name_table} (descricao, valor, pago, data_pagamento) VALUES (?
             log.error(f"[DATABASE-ERRO-NOPAYMENTS-OPERATIONAL: {e}")
         except ValueError as e:
             log.error(f"[DATABASE-ERRO-NOPAYMENTS-VALUE]: {e}")
-

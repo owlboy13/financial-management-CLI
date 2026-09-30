@@ -35,6 +35,9 @@ import sqlite3
 from sqlite3 import OperationalError
 import logging
 from pandas.errors import DatabaseError
+from plotly.subplots import make_subplots
+import plotly.graph_objects as go
+
 
 log = logging.getLogger(__name__)
 
@@ -133,10 +136,10 @@ def update_data(name_db, name_table, id_, pago, data_pagamento,
         except ValueError as e:
             log.exception(f"[ERRO-UTILS-ATUALIZACAO]: {e}")
 
-def insert_data(name_db, name_table, description, validate: str | None, value__):
+def insert_data(name_db, name_table, description, validate: str | None, value__, observation: str | None):
     try:
         df_table = Table(name_db, name_table)
-        df_table.insert_payments(description, validate, value__)
+        df_table.insert_payments(description, validate, value__, observation)
         log.info(f"[UTILS] dados inseridos na tabela {name_table}")
 
         back_to_menu("volte")
@@ -148,6 +151,7 @@ def delete_data(name_db, name_table, value__):
     try:
         table = Table(name_db, name_table)
         table.delete_line(value__)
+        print(f"\nItem {value__} deletado com sucesso\n")
         log.info(f"[UTILS] {value__} deletado com sucesso")
 
         back_to_menu("volte")
@@ -165,7 +169,6 @@ def query_all_tables(database__):
 
         tables = cursor.fetchall()
         tables_names = [table for table in tables if not "sqlite_sequence" in table]
-        indice_tables = len(tables_names)
         columns_name = ["Tabelas"]
         df = pd.DataFrame(data=tables_names, columns=columns_name)
 
@@ -205,7 +208,6 @@ def view_menu(input_table):
                 \n[0] - Sair
                 
     """)
-
 def present_flow_finance():
     header = """
     █████ █      ███  █   █ █████ ███ █   █  ███  █   █  ███  █████ 
@@ -213,7 +215,6 @@ def present_flow_finance():
     ████  █     █   █ █ █ █ ████   █  █ █ █ █████ █ █ █ █     ████  
     █     █     █   █ ██ ██ █      █  █  ██ █   █ █  ██ █     █     
     █     █████  ███  █   █ █     ███ █   █ █   █ █   █  ███  █████ 
-
     """
     print("=="*40)
     print(f"\n{header}")
@@ -222,5 +223,56 @@ def present_flow_finance():
 
     input("\nAperte [ENTER] para abrir o menu com opções...")
 
-def analyze_data(dataframe__):
-    ...    
+def analyze_data(name_db, name_table):
+    try:
+        conn = sqlite3.connect(name_db)
+        df = pd.read_sql(f"SELECT * FROM {name_table}", conn)
+
+        fig = make_subplots(
+            rows=2, cols=2,
+            specs=[[{"type": "bar"}, {"type": "barpolar"}],
+                [{"type": "pie"}, {"type": "scatter3d"}]],
+                subplot_titles=["Valores Totais", "",
+                                "Percentual %", ""]
+        )
+
+        fig.add_trace(go.Bar(y=df["valor"], text=df["descricao"]),
+                    row=1, col=1)
+
+        fig.add_trace(go.Barpolar(theta=df["descricao"], r=df["pago"]),
+                    row=1, col=2)
+
+        fig.add_trace(go.Pie(values=df["valor"], text=df["descricao"]),
+                    row=2, col=1)
+
+        fig.add_trace(go.Scatter3d(x=[2, 3, 1], y=[0, 0, 0],
+                                z=[0.5, 1, 2], mode="lines+markers+text"),
+                    row=2, col=2)
+
+        fig.update_layout(height=1000, width=1500, showlegend=True)
+
+        log.info("SubPlots Gerados")
+
+        return fig.show()
+
+    except ValueError as e:
+        log.error(f"[UTILS] - Erro ao gerar gráfico {e}")
+
+
+def copy_data_table(database, table_1, table_2):
+    if not table_1 or table_2:
+        return None
+
+    try:
+        conn = sqlite3.connect(database)
+        cursor = conn.cursor()
+
+        execute = cursor.execute(f"""
+        INSERT INTO {table_2} (descricao, vencimento, valor) VALUES (?, ?, ?) 
+        SELECT descricao, vencimento, valor FROM {table_1};
+""")
+
+        return execute, log.info(f"[UTILS] DADOS DE {table_1} COPIADOS PARA {table_2}")
+
+    except ValueError as e:
+        log.error(f"[UTILS] - Erro de Valor {e}")
