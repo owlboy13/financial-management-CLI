@@ -116,7 +116,8 @@ def view_table(name_db, name_table, function):
 
 
 def update_data(name_db, name_table, id_, pago, data_pagamento,
-                quest_edit, input_id, input_value) -> None:
+                quest_edit, input_id, input_value,
+                observation) -> None:
     if quest_edit == "2":
         try:
             table = Table(name_db, name_table)
@@ -133,6 +134,17 @@ def update_data(name_db, name_table, id_, pago, data_pagamento,
             log.info(f"[UTILS] Valores atualizados do {id_} para {input_value}")
 
             back_to_menu("volte")
+        except ValueError as e:
+            log.exception(f"[ERRO-UTILS-ATUALIZACAO]: {e}")
+    elif quest_edit == "3":
+        try:
+            table = Table(name_db, name_table)
+            table.update_observation(id_, observation)
+
+            log.info("[UTILS] Update de Coluna Observação atualizada")
+
+            back_to_menu("volte")
+
         except ValueError as e:
             log.exception(f"[ERRO-UTILS-ATUALIZACAO]: {e}")
 
@@ -221,7 +233,7 @@ def present_flow_finance():
     print("=="*40)
     log.info("Open FlowFinance")
 
-    input("\nAperte [ENTER] para abrir o menu com opções...")
+    input("\nAperte [ENTER] para fazer o login e senha...")
 
 def analyze_data(name_db, name_table):
     try:

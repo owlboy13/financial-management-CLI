@@ -5,6 +5,7 @@ import datetime
 import logging
 import os
 from dotenv import load_dotenv
+import getpass
 
 load_dotenv()
 
@@ -17,9 +18,7 @@ FORMAT_DATE_NOW = datetime.datetime.strftime(DATE_NOW, "%d/%m/%Y %H:%M:%S")
 
 def main():
 
-    present_flow_finance()
-
-    quest_create_table = input("Deseja criar uma nova tabela? [SIM] OU [ENTER PARA PULAR] -> ").lower().strip()
+    quest_create_table = input("\nDeseja criar uma nova tabela? [SIM] OU [ENTER PARA PULAR] -> ").lower().strip()
     if quest_create_table == 'sim':
         name_table = input(" [NEW] Digite um nome para sua nova tabela: ").lower().strip()
         try:
@@ -60,7 +59,7 @@ def main():
 
             commands = {
                 1: lambda: view_table(name_db=DATABASE, name_table=input_table, 
-                                      function=kpis_table),
+                                    function=kpis_table),
                 2: lambda: insert_data(name_db=DATABASE, name_table=input_table,
                                     description=input_description,
                                     validate=input_validate,
@@ -72,7 +71,8 @@ def main():
                                     data_pagamento=FORMAT_DATE_NOW,
                                     quest_edit=quest_edit,
                                     input_id=input_id,
-                                    input_value=input_value),
+                                    input_value=input_value,
+                                    observation=input_observation),
                 4: lambda: analyze_data(name_db=DATABASE, name_table=input_table), 
                 5: lambda: delete_data(name_db=DATABASE, name_table=input_table,
                                     value__=input_id__),
@@ -94,7 +94,7 @@ def main():
                 print("""
                         \nMenu de Atualizacao\n
         """)
-                print("[1] - Editar Valor\n[2] - Marcar como Pago\n")
+                print("[1] - Editar Valor\n[2] - Marcar como Pago\n[3] - Adicionar Observação\n")
                 quest_edit = input("Digite o número da operacao que deseja executar: ").lower().strip()
                 if quest_edit == "2":
                     input_id = input("digite o id da conta: \n")
@@ -104,6 +104,10 @@ def main():
                 elif quest_edit == "1":
                     input_value = float(input("Digite o valor que deseja adicionar: \n").replace(",", "."))
                     input_id = input("...e qual o [ID] da conta para alterar? \n")
+
+                elif quest_edit == "3":
+                    input_id = input("digite o id da conta: \n")
+                    input_observation = input(f"digite a observação que deseja para a conta {input_id}: \n")
 
             if options == responses[4]:
                 print("""
@@ -138,4 +142,13 @@ def main():
             log.error(f"[MAIN] Erro de Atributo: {e}")
 
 if __name__ == '__main__':
+
+    present_flow_finance()
+
+    input_user_name = input("\nUSERNAME: ").split()
+    input_password = getpass.getpass("\nPASSWORD: ").split()
+
     main()
+
+
+

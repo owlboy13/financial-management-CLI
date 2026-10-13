@@ -225,3 +225,20 @@ INSERT INTO {self.name_table} (descricao, valor, pago, data_pagamento) VALUES (?
             log.error(f"[DATABASE-ERRO-NOPAYMENTS-OPERATIONAL: {e}")
         except ValueError as e:
             log.error(f"[DATABASE-ERRO-NOPAYMENTS-VALUE]: {e}")
+
+    def update_observation(self, id__, observation):
+        try:
+            query = f"""
+                UPDATE {self.name_table} SET observacao = ? WHERE id = ?
+"""
+
+            db = DataBase(self.name_db)
+            db.connect()
+            db.conn.execute(query, (observation, id__))
+            db.conn.commit()
+
+        except ValueError as e:
+            log.exception(f"[DATABASE] {e}")
+
+        finally:
+            db.close()
