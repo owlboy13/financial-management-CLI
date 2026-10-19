@@ -8,6 +8,8 @@ packaging==26.3
 pandas==3.0.5
 pillow==12.3.0
 plotly==6.9.0
+pwinput==1.0.3
 pyparsing==3.3.2
 python-dateutil==2.9.0.post0
+python-dotenv==1.2.3
 six==1.17.0

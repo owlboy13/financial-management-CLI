@@ -181,10 +181,14 @@ def query_all_tables(database__):
 
         tables = cursor.fetchall()
         tables_names = [table for table in tables if not "sqlite_sequence" in table]
+        table_account__ = [tables_clean for tables_clean in tables_names if not "table_account" in tables_clean]
         columns_name = ["Tabelas"]
-        df = pd.DataFrame(data=tables_names, columns=columns_name)
+        df = pd.DataFrame(data=table_account__, columns=columns_name)
 
         return df
+
+    except ValueError as e:
+        log.exception(f"[ERROR-UTILS-SHOWTABLES] - Erro de Valor: {e}")
         
     except OperationalError as e:
         log.exception(f"[ERRO-UTILS-SHOWTABELAS] Erro Operacional: {e}")
@@ -217,6 +221,7 @@ def view_menu(input_table):
                 \n[4] - Estatísticas
                 \n[5] - Deletar Conta ou Recebimento
                 \n[6] - Alternar de Tabela
+                \n[7] - Calcule o valor líquido total do mês
                 \n[0] - Sair
                 
     """)
@@ -288,3 +293,35 @@ def copy_data_table(database, table_1, table_2):
 
     except ValueError as e:
         log.error(f"[UTILS] - Erro de Valor {e}")
+
+def total_liquido(database, table_receita, table_gastos):
+    try:
+
+        table = Table(database, table_receita)
+        table_total_liquido = table.sum_values(table_gastos)
+
+        for value_format in table_total_liquido:
+            res = float(".".join(str(__) for __ in value_format))
+
+            log.info("[UTILS] - VALOR LIQUIDO GERADO")
+
+            if res <= 0:
+                return f"\nValor Líquido R$ {res:.2f} - DÉFICIT ".replace(".", ",")
+                
+            else:
+                return f"\nValor Líquido R$ {res:.2f} - LUCRO ".replace(".", ",")
+
+    except ValueError as e:
+        log.exception(f"[ERROR-UTILS-TOTAL-LIQUID] - {e}")
+
+    return None
+
+def view_total_liquido(function_total):
+    print(function_total)
+    back_to_menu("volte")
+
+
+if __name__ in "__main__":
+    print(type(total_liquido("gestao_financeira_2026.db", "receita_outubro", "gastos_outubro")))
+
+

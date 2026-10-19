@@ -242,3 +242,35 @@ INSERT INTO {self.name_table} (descricao, valor, pago, data_pagamento) VALUES (?
 
         finally:
             db.close()
+
+    def sum_values(self, table_gastos):
+        """
+            self.name_table = TABELA DE RECEITA
+            table_2 = TABELA DE GASTOS
+        """
+        if not self.name_table and table_gastos:
+            return None
+
+        query = f"""
+            select (SELECT SUM(valor) FROM {self.name_table}) - (SELECT SUM(valor) FROM {table_gastos})
+"""
+        try:
+            db = DataBase(self.name_db)
+            db.connect()
+            db.cursor.execute(query)
+
+            log.info(f"[DATABASE] - VALOR LIQUIDO TOTAL GERADO")
+
+            db.conn.commit()
+
+            return db.cursor.fetchall()
+
+        except ValueError as e:
+            log.exception(f"[ERROR-DATABASE]: Erro de valor: {e}")
+            return None
+        finally:
+            db.close()
+
+if __name__ == '__main__':
+    table = Table("gestao_financeira_2026.db", "receita_outubro")
+    print(type(table.sum_values("gastos_outubro")))

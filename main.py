@@ -1,11 +1,11 @@
 from pathlib import Path
-from utils import create_table__, view_table, insert_data, update_data, kpis_table, delete_data
-from utils import view_menu, show_tables, present_flow_finance, query_all_tables, analyze_data
+from utils import create_table__, view_table, insert_data, update_data, kpis_table, delete_data, view_total_liquido
+from utils import view_menu, show_tables, present_flow_finance, query_all_tables, analyze_data, total_liquido
 import datetime
 import logging
 import os
 from dotenv import load_dotenv
-import getpass
+import pwinput
 
 load_dotenv()
 
@@ -15,6 +15,7 @@ BASE_DIR = Path(__file__).parent
 DATABASE = os.getenv("DATABASE")
 DATE_NOW = datetime.datetime.now()
 FORMAT_DATE_NOW = datetime.datetime.strftime(DATE_NOW, "%d/%m/%Y %H:%M:%S")
+TABLE_ACCOUNT = os.getenv("TABLE_ACCOUNT")
 
 def main():
 
@@ -54,8 +55,10 @@ def main():
             default_pago = True
             input_id__ = None
             input_value = None
+            input_observation = None
+            input_table_gastos = None
 
-            responses = [1, 2, 3, 4, 5, 6]
+            responses = [1, 2, 3, 4, 5, 6, 7]
 
             commands = {
                 1: lambda: view_table(name_db=DATABASE, name_table=input_table, 
@@ -77,6 +80,7 @@ def main():
                 5: lambda: delete_data(name_db=DATABASE, name_table=input_table,
                                     value__=input_id__),
                 6: lambda: show_tables(DATABASE),
+                7: lambda: view_total_liquido(total_liquido(DATABASE, input_table, input_table_gastos))
             }
 
 
@@ -125,6 +129,14 @@ def main():
                 
                 input_table = query_all_tables(DATABASE).loc[input_number_table].item()
 
+            if options == 7:
+
+                show_tables(DATABASE)
+
+                input_table_gastos = int(input("\nDigite o número da tabela de gastos para calcular o Valor Líquido: "))
+
+                input_table_gastos = query_all_tables(DATABASE).loc[input_table_gastos].item()
+
             if options in commands:
                 command = commands[options]
 
@@ -141,12 +153,17 @@ def main():
         except AttributeError as e:
             log.error(f"[MAIN] Erro de Atributo: {e}")
 
+
 if __name__ == '__main__':
 
     present_flow_finance()
 
-    input_user_name = input("\nUSERNAME: ").split()
-    input_password = getpass.getpass("\nPASSWORD: ").split()
+    input_user_name = input("\nUsername: ").split()
+    input_password = pwinput.pwinput(prompt="Password: ").split()
+
+    get_password = "".join([str(_) for _ in input_password])
+    get_username = "".join([str(_) for _ in input_user_name])
+
 
     main()
 
