@@ -558,3 +558,43 @@ ValueError: could not convert string to float: '-687,5500000000002'
 2026-10-21 09:53:53,949 - INFO - [DATABASE] - VALOR LIQUIDO TOTAL GERADO
 2026-10-21 09:53:53,949 - INFO - [UTILS] - VALOR LIQUIDO GERADO
 2026-10-21 09:53:58,987 - INFO - Leaving FlowFinance
+2026-10-21 14:50:39,784 - INFO - Open FlowFinance
+2026-10-21 14:50:41,253 - WARNING - [MAIN] Input Table precisa ser um valor inteiro: invalid literal for int() with base 10: ''
+2026-10-21 14:50:41,253 - INFO - RE-opening FlowFinance
+2026-10-21 14:51:35,684 - ERROR - [MAIN] Erro de Valor: could not convert string to float: ''
+2026-10-21 14:51:37,525 - INFO - DataFrame formatado
+2026-10-21 14:51:49,997 - INFO - DataFrame formatado
+2026-10-21 17:54:51,933 - INFO - Leaving FlowFinance
+2026-10-21 18:13:27,021 - INFO - Open FlowFinance
+2026-10-21 18:13:36,076 - INFO - DataFrame formatado
+2026-10-21 18:14:10,777 - INFO - Open FlowFinance
+2026-10-21 18:14:16,698 - INFO - DataFrame formatado
+2026-10-21 18:14:35,960 - INFO - [UTILS] 7 deletado com sucesso
+2026-10-21 18:14:43,145 - INFO - DataFrame formatado
+2026-10-21 18:15:03,856 - INFO - [UTILS] dados inseridos na tabela gastos_outubro
+2026-10-21 18:15:06,160 - INFO - DataFrame formatado
+2026-10-21 18:24:38,927 - INFO - Leaving FlowFinance
+2026-10-21 18:52:31,168 - INFO - Open FlowFinance
+2026-10-21 18:52:46,805 - INFO - Open FlowFinance
+2026-10-21 18:53:09,417 - INFO - Open FlowFinance
+2026-10-21 18:53:59,366 - INFO - Open FlowFinance
+2026-10-21 18:54:21,074 - INFO - Open FlowFinance
+2026-10-21 18:54:26,821 - ERROR - Autenticacao falhou
+2026-10-21 18:54:26,822 - ERROR - [LOGIN] USERNAME OU PASSWORD INCORRETAS
+2026-10-21 18:54:33,056 - INFO - Open FlowFinance
+2026-10-21 18:54:41,734 - ERROR - Autenticacao falhou
+2026-10-21 18:54:41,734 - ERROR - [LOGIN] USERNAME OU PASSWORD INCORRETAS
+2026-10-21 18:54:47,422 - INFO - Open FlowFinance
+2026-10-21 18:55:06,702 - ERROR - Autenticacao falhou
+2026-10-21 18:55:06,702 - ERROR - [LOGIN] USERNAME OU PASSWORD INCORRETAS
+2026-10-21 18:55:09,656 - INFO - Open FlowFinance
+2026-10-21 18:55:15,462 - INFO - Autenticado com sucesso
+2026-10-21 18:55:15,463 - INFO - LOGIN FEITO COM SUCESSO
+2026-10-21 18:56:04,812 - INFO - Open FlowFinance
+2026-10-21 18:56:09,774 - INFO - Autenticado com sucesso
+2026-10-21 18:56:09,774 - INFO - LOGIN FEITO COM SUCESSO
+2026-10-21 18:56:18,621 - INFO - DataFrame formatado
+2026-10-21 18:56:21,006 - INFO - Leaving FlowFinance
+2026-10-21 18:56:22,748 - INFO - Open FlowFinance
+2026-10-21 18:56:27,246 - ERROR - Autenticacao falhou
+2026-10-21 18:56:27,246 - ERROR - [LOGIN] USERNAME OU PASSWORD INCORRETAS

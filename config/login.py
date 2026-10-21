@@ -1,4 +1,7 @@
+from .auth import authentication
+import logging
 
+log = logging.getLogger(__name__)
 
 class Login:
     def __init__(self, username, password):
@@ -28,6 +31,22 @@ class Login:
         raise TypeError("Password precisa ser uma String")
 
 
-    def connected(self):
-        ...
+    def try_connected(self):
+        try:
+            auth = authentication(self.username, self.password)
+
+            if not auth:
+                log.error("[LOGIN] USERNAME OU PASSWORD INCORRETAS")
+                return None
+
+            log.info("LOGIN FEITO COM SUCESSO")
+            self.connected = True
+            return self.connected
+
+        except ValueError as e:
+            log.exception(f"[LOGIN] - VALOR ERRADO: {e}")
+
+            
+
+            
     

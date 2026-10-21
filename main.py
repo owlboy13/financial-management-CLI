@@ -5,6 +5,8 @@ import datetime
 import logging
 import os
 from dotenv import load_dotenv
+from config.login import *
+import pwinput
 
 load_dotenv()
 
@@ -17,6 +19,8 @@ FORMAT_DATE_NOW = datetime.datetime.strftime(DATE_NOW, "%d/%m/%Y %H:%M:%S")
 TABLE_ACCOUNT = os.getenv("TABLE_ACCOUNT")
 
 def main():
+
+    print("\n\n-- CONECTADO COM SUCESSO --\n")
 
     quest_create_table = input("\nDeseja criar uma nova tabela? [SIM] OU [ENTER PARA PULAR] -> ").lower().strip()
     if quest_create_table == 'sim':
@@ -157,7 +161,21 @@ if __name__ == '__main__':
 
     present_flow_finance()
 
-    main()
+    input_username = input("\nUsername: ").split()
+    input_password = pwinput.pwinput("\nPassword: ").split()
+
+    str_input_username = "".join([str(_) for _ in input_username])
+    str_input_password = "".join([str(_) for _ in input_password])
+
+    login = Login(str_input_username,
+                  str_input_password)
+    
+    if login.try_connected():
+    
+        main()
+
+    else:
+        print("USERNAME OU PASSWORD INCORRETOS")
 
 
 
