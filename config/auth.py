@@ -8,7 +8,7 @@ log = logging.getLogger(__name__)
 
 def authentication(username, password):
     validate = False
-    if not username and password:
+    if not username or not password:
         log.error("Precisa adicionar os parametros username e password")
         return None
 
@@ -17,10 +17,10 @@ def authentication(username, password):
     cursor = conn.cursor()
 
     query = f"""
-            SELECT username from {TABLE_ACCOUNT} WHERE username='{username}' AND password='{password__}'
+            SELECT username from {TABLE_ACCOUNT} WHERE username= ? AND password= ?
 """
 
-    cursor.execute(query)
+    cursor.execute(query, (username, password__))
 
     if not cursor.fetchone():
         return log.error("Autenticacao falhou")

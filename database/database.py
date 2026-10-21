@@ -160,7 +160,7 @@ INSERT INTO {self.name_table} (descricao, valor, pago, data_pagamento) VALUES (?
             query = f"""
                 ALTER TABLE {self.name_table} ADD COLUMN {column_name} {datatype__}({count_caract}) DEFAULT NULL
 """         
-            db = DataBase(self.name_table)
+            db = DataBase(self.name_db)
             db.connect()
             db.cursor.execute(query)
             db.conn.commit()
@@ -213,7 +213,7 @@ INSERT INTO {self.name_table} (descricao, valor, pago, data_pagamento) VALUES (?
             query = f"""
                 SELECT id, descricao, vencimento, valor from {self.name_table} WHERE pago = 0
 """
-            db = DataBase("gestao_financeira_2026.db")
+            db = DataBase(self.name_db)
             db.connect()
             db.cursor.execute(query)
             all_arrows = db.cursor.fetchall()
@@ -247,7 +247,7 @@ INSERT INTO {self.name_table} (descricao, valor, pago, data_pagamento) VALUES (?
             self.name_table = TABELA DE RECEITA
             table_2 = TABELA DE GASTOS
         """
-        if not self.name_table and table_gastos:
+        if not self.name_table or not table_gastos:
             return None
 
         query = f"""
@@ -284,7 +284,3 @@ INSERT INTO {self.name_table} (descricao, valor, pago, data_pagamento) VALUES (?
             return list_table_clean
         except OperationalError as e:
             log.exception(f"[ERRO-UTILS-SHOWTABELAS] Erro Operacional: {e}")
-
-if __name__ == '__main__':
-    table = Table("gestao_financeira_2026.db", "table_account")
-    table.read_table()

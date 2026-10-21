@@ -202,8 +202,6 @@ def show_tables(database__):
                                                               
 \n--> {str(database__).upper()[-25:-3]}:\n\n{query_all}\n
 """
-    database_count = str(database__)
-    print(len(database_count))
     print(headler)
 
 def view_menu(input_table):
@@ -276,23 +274,6 @@ def analyze_data(name_db, name_table):
         log.error(f"[UTILS] - Erro ao gerar gráfico {e}")
 
 
-def copy_data_table(database, table_1, table_2):
-    if not table_1 or table_2:
-        return None
-
-    try:
-        conn = sqlite3.connect(database)
-        cursor = conn.cursor()
-
-        execute = cursor.execute(f"""
-        INSERT INTO {table_2} (descricao, vencimento, valor) VALUES (?, ?, ?) 
-        SELECT descricao, vencimento, valor FROM {table_1};
-""")
-
-        return execute, log.info(f"[UTILS] DADOS DE {table_1} COPIADOS PARA {table_2}")
-
-    except ValueError as e:
-        log.error(f"[UTILS] - Erro de Valor {e}")
 
 def total_liquido(database, table_receita, table_gastos):
     try:
@@ -319,9 +300,3 @@ def total_liquido(database, table_receita, table_gastos):
 def view_total_liquido(function_total):
     print(function_total)
     back_to_menu("volte")
-
-
-if __name__ in "__main__":
-    print(type(total_liquido("gestao_financeira_2026.db", "receita_outubro", "gastos_outubro")))
-
-
