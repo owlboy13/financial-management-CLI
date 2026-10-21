@@ -17,6 +17,7 @@ class Login:
     def username(self, value):
         if isinstance(value, str) and value:
             self.__username = value
+            return
         raise TypeError("Username precisa ser uma String")
 
     @property
@@ -27,7 +28,7 @@ class Login:
     def password(self, value):
         if not isinstance(value, str) and value:
             self.__password = value
-
+            return
         raise TypeError("Password precisa ser uma String")
 
 
