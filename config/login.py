@@ -26,7 +26,7 @@ class Login:
 
     @password.setter
     def password(self, value):
-        if not isinstance(value, str) and value:
+        if isinstance(value, str) and value:
             self.__password = value
             return
         raise TypeError("Password precisa ser uma String")
