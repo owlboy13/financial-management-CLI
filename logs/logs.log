@@ -500,3 +500,61 @@ ValueError: could not convert string to float: '-687,5500000000002'
 2026-10-19 18:54:32,211 - INFO - [DATABASE] - VALOR LIQUIDO TOTAL GERADO
 2026-10-19 18:54:32,212 - INFO - [UTILS] - VALOR LIQUIDO GERADO
 2026-10-19 18:57:44,354 - INFO - Leaving FlowFinance
+2026-10-19 18:59:38,433 - INFO - Open FlowFinance
+2026-10-19 18:59:57,018 - INFO - SubPlots Gerados
+2026-10-20 14:49:26,998 - INFO - Open FlowFinance
+2026-10-20 14:50:43,884 - INFO - [UTILS] dados inseridos na tabela receita_outubro
+2026-10-20 14:50:46,301 - INFO - DataFrame formatado
+2026-10-20 14:58:16,719 - INFO - DataFrame formatado
+2026-10-20 14:58:28,201 - INFO - [DATABASE] - VALOR LIQUIDO TOTAL GERADO
+2026-10-20 14:58:28,201 - INFO - [UTILS] - VALOR LIQUIDO GERADO
+2026-10-21 09:15:25,314 - INFO - Open FlowFinance
+2026-10-21 09:18:52,663 - INFO - Open FlowFinance
+2026-10-21 09:19:37,565 - INFO - Open FlowFinance
+2026-10-21 09:19:54,700 - INFO - Open FlowFinance
+2026-10-21 09:20:12,112 - INFO - Open FlowFinance
+2026-10-21 09:20:28,705 - INFO - Open FlowFinance
+2026-10-21 09:20:55,039 - INFO - Open FlowFinance
+2026-10-21 09:24:07,900 - INFO - Leaving FlowFinance
+2026-10-21 09:24:09,656 - INFO - Open FlowFinance
+2026-10-21 09:24:22,420 - INFO - Open FlowFinance
+2026-10-21 09:24:43,058 - INFO - Open FlowFinance
+2026-10-21 09:25:35,099 - INFO - Open FlowFinance
+2026-10-21 09:26:18,002 - INFO - Open FlowFinance
+2026-10-21 09:26:39,474 - INFO - Open FlowFinance
+2026-10-21 09:27:39,012 - WARNING - [MAIN] Input Table precisa ser um valor inteiro: invalid literal for int() with base 10: '\x1b[A'
+2026-10-21 09:27:39,013 - INFO - RE-opening FlowFinance
+2026-10-21 09:27:41,679 - INFO - Open FlowFinance
+2026-10-21 09:29:23,622 - INFO - Open FlowFinance
+2026-10-21 09:29:36,772 - INFO - Open FlowFinance
+2026-10-21 09:29:50,091 - INFO - Open FlowFinance
+2026-10-21 09:30:03,563 - INFO - Open FlowFinance
+2026-10-21 09:30:21,014 - INFO - Open FlowFinance
+2026-10-21 09:30:28,942 - INFO - Open FlowFinance
+2026-10-21 09:31:07,726 - ERROR - [MAIN] Erro de Atributo: 'sqlite3.Cursor' object has no attribute 'keys'
+2026-10-21 09:32:10,201 - INFO - Open FlowFinance
+2026-10-21 09:33:00,806 - INFO - Open FlowFinance
+2026-10-21 09:41:14,544 - INFO - Open FlowFinance
+2026-10-21 09:45:57,529 - INFO - Open FlowFinance
+2026-10-21 09:46:01,370 - ERROR - [MAIN] Erro de Atributo: 'NoneType' object has no attribute 'cursor'
+2026-10-21 09:47:52,004 - INFO - Leaving FlowFinance
+2026-10-21 09:47:53,175 - INFO - Open FlowFinance
+2026-10-21 09:47:57,030 - ERROR - [MAIN] Erro de Atributo: 'tuple' object has no attribute 'cursor'
+2026-10-21 09:49:21,897 - INFO - Open FlowFinance
+2026-10-21 09:49:55,055 - INFO - Leaving FlowFinance
+2026-10-21 09:49:56,326 - INFO - Open FlowFinance
+2026-10-21 09:49:58,914 - INFO - DataFrame formatado
+2026-10-21 09:51:28,145 - INFO - [UTILS] dados inseridos na tabela gastos_outubro
+2026-10-21 09:51:30,473 - INFO - DataFrame formatado
+2026-10-21 09:51:45,392 - INFO - [UTILS] 9 deletado com sucesso
+2026-10-21 09:51:48,521 - INFO - DataFrame formatado
+2026-10-21 09:52:33,937 - INFO - [UTILS] Valores atualizados do 7 para 371.0
+2026-10-21 09:52:36,678 - INFO - DataFrame formatado
+2026-10-21 09:53:01,523 - INFO - [UTILS] Dados atualizados do 7 como True
+2026-10-21 09:53:04,730 - INFO - DataFrame formatado
+2026-10-21 09:53:28,602 - INFO - [UTILS] Update de Coluna Observação atualizada
+2026-10-21 09:53:30,498 - INFO - DataFrame formatado
+2026-10-21 09:53:45,874 - INFO - DataFrame formatado
+2026-10-21 09:53:53,949 - INFO - [DATABASE] - VALOR LIQUIDO TOTAL GERADO
+2026-10-21 09:53:53,949 - INFO - [UTILS] - VALOR LIQUIDO GERADO
+2026-10-21 09:53:58,987 - INFO - Leaving FlowFinance

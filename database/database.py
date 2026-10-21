@@ -8,7 +8,6 @@ logging.basicConfig(format='%(asctime)s - %(levelname)s - %(message)s',
                     encoding='utf-8',
                     level=logging.DEBUG)
 
-
 class DataBase:
     def __init__(self, name_db):
         self._name_db = name_db
@@ -35,7 +34,7 @@ class DataBase:
         self.close()
 
 class Table(DataBase):
-    def __init__(self, name_db, name_table):
+    def __init__(self, name_db, name_table) -> None:
         super().__init__(name_db)
         self._name_table = name_table
 
@@ -269,8 +268,23 @@ INSERT INTO {self.name_table} (descricao, valor, pago, data_pagamento) VALUES (?
             log.exception(f"[ERROR-DATABASE]: Erro de valor: {e}")
             return None
         finally:
-            db.close()
+            db.close()     
+
+    def view_all_tables(self):
+        try:
+            db = DataBase(self.name_db)
+            db.connect()
+    
+            db.cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
+    
+            tables = db.cursor.fetchall()
+            tables_names = [table for table in tables if not "sqlite_sequence" in table]
+            list_table_clean = [tables_clean for tables_clean in tables_names if not "table_account" in tables_clean]
+
+            return list_table_clean
+        except OperationalError as e:
+            log.exception(f"[ERRO-UTILS-SHOWTABELAS] Erro Operacional: {e}")
 
 if __name__ == '__main__':
-    table = Table("gestao_financeira_2026.db", "receita_outubro")
-    print(type(table.sum_values("gastos_outubro")))
+    table = Table("gestao_financeira_2026.db", "table_account")
+    table.read_table()

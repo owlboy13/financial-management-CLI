@@ -29,7 +29,7 @@ editar valores ja adicionados e adicionar novos atributos
 excluir valores
 
 """
-from database import Table
+from database.database import Table
 import pandas as pd
 import sqlite3
 from sqlite3 import OperationalError
@@ -40,6 +40,7 @@ import plotly.graph_objects as go
 
 
 log = logging.getLogger(__name__)
+
 
 def back_to_menu(keyword):
     menu = input(f"\naperte [ENTER] e {keyword} para o menu...")
@@ -62,7 +63,11 @@ def create_table__(name_bd, name_table):
 def kpis_table(name_db, name_table):
     try:
         conn = sqlite3.connect(name_db)
-        df = pd.read_sql(f"SELECT * FROM {name_table}", conn)
+        query = f"""
+                SELECT * FROM {name_table}
+"""
+
+        df = pd.read_sql(query, conn)
         total = df['valor'].sum()
         media = df['valor'].mean()
         minimo = df['valor'].min()
@@ -81,7 +86,6 @@ def kpis_table(name_db, name_table):
     except OperationalError as e:
         log.exception(f"[ERROR-OPERATIONAL-KPIS] {e}")
     
-    return None
 
 def filter_no_payments(name_db, name_table):
     try:
@@ -174,24 +178,18 @@ def delete_data(name_db, name_table, value__):
 
 def query_all_tables(database__):
     try:
-        conn = sqlite3.connect(database__)
-        cursor = conn.cursor()
+        table = Table(database__, "table_account")
+        list_table = table.view_all_tables()
 
-        cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
-
-        tables = cursor.fetchall()
-        tables_names = [table for table in tables if not "sqlite_sequence" in table]
-        table_account__ = [tables_clean for tables_clean in tables_names if not "table_account" in tables_clean]
         columns_name = ["Tabelas"]
-        df = pd.DataFrame(data=table_account__, columns=columns_name)
+        df = pd.DataFrame(data=list_table, columns=columns_name)
 
         return df
 
     except ValueError as e:
         log.exception(f"[ERROR-UTILS-SHOWTABLES] - Erro de Valor: {e}")
         
-    except OperationalError as e:
-        log.exception(f"[ERRO-UTILS-SHOWTABELAS] Erro Operacional: {e}")
+
 
 def show_tables(database__):
     query_all = query_all_tables(database__)
@@ -202,8 +200,10 @@ def show_tables(database__):
   █ ▐▌ ▐▌▐▙▄▞▘▐▙▄▄▖▐▙▄▄▖▐▌ ▐▌▗▄▄▞▘    ▐▙▄▄▀▝▚▄▞▘    ▐▙▄▞▘▐▙▄▄▀
                                                               
                                                               
-\n--> {database__.upper()[:22]}:\n\n{query_all}\n
+\n--> {str(database__).upper()[-25:-3]}:\n\n{query_all}\n
 """
+    database_count = str(database__)
+    print(len(database_count))
     print(headler)
 
 def view_menu(input_table):

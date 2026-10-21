@@ -5,14 +5,13 @@ import datetime
 import logging
 import os
 from dotenv import load_dotenv
-import pwinput
 
 load_dotenv()
 
 log = logging.getLogger(__name__)
 
 BASE_DIR = Path(__file__).parent
-DATABASE = os.getenv("DATABASE")
+DATABASE = BASE_DIR / "database" / os.getenv("DATABASE")
 DATE_NOW = datetime.datetime.now()
 FORMAT_DATE_NOW = datetime.datetime.strftime(DATE_NOW, "%d/%m/%Y %H:%M:%S")
 TABLE_ACCOUNT = os.getenv("TABLE_ACCOUNT")
@@ -157,13 +156,6 @@ def main():
 if __name__ == '__main__':
 
     present_flow_finance()
-
-    input_user_name = input("\nUsername: ").split()
-    input_password = pwinput.pwinput(prompt="Password: ").split()
-
-    get_password = "".join([str(_) for _ in input_password])
-    get_username = "".join([str(_) for _ in input_user_name])
-
 
     main()
 

@@ -18,7 +18,7 @@ load_dotenv()
 
 log = logging.getLogger(__name__)
 
-class ControllerAccount:
+class Register:
 
     def __init__(self, username, password, database, table, fullname) -> None:
         self.fullname = fullname
@@ -26,7 +26,6 @@ class ControllerAccount:
         self.password = password
         self.database = database
         self.table = table
-        self.connected:bool =  False
 
     def hash_password(self, password__) -> str:
         return hashlib.sha256(password__.encode()).hexdigest()
@@ -84,16 +83,13 @@ class ControllerAccount:
 
         return None
 
-    def authentication(self):
-        ...
-
-    def view_table_users(self):
+    def view_table_users(database, table):
         try:
             query = f"""
-                SELECT * FROM {self.table}
+                SELECT * FROM {table}
 
     """
-            table = sqlite3.connect(self.database)
+            table = sqlite3.connect(database)
 
             table.cursor()
 
